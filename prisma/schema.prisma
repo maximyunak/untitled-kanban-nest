@@ -1,0 +1,117 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           Int     @id @default(autoincrement())
+  email        String  @unique
+  password     String
+  firstName    String  @map("first_name")
+  lastName     String  @map("last_name")
+  patronymic   String?
+  refreshToken String? @map("refresh_token")
+
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  boards        Board[]
+  createdTasks  Task[]          @relation("createdTasks")
+  assigneeTasks Task[]          @relation("assigneeTasks")
+  userBoards    userBoards[]
+  refreshTokens refreshTokens[]
+
+  @@map("users")
+}
+
+model Board {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String?
+
+  creator   User @relation(fields: [creatorId], onDelete: Cascade, references: [id])
+  creatorId Int  @map("creator_id")
+
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
+  columns    Column[]
+  userBoards userBoards[]
+
+  @@map("boards")
+}
+
+model Column {
+  id       Int    @id @default(autoincrement())
+  name     String
+  position Int    @default(0)
+
+  board   Board @relation(fields: [boardId], onDelete: Cascade, references: [id])
+  boardId Int   @map("board_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  tasks     Task[]
+
+  @@map("columns")
+}
+
+model Task {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  isCompleted Boolean  @default(false) @map("is_completed")
+  position    Int      @default(0)
+  deadline    DateTime
+
+  creator   User @relation("createdTasks", fields: [creatorId], onDelete: Cascade, references: [id])
+  creatorId Int  @map("creator_id")
+
+  assignee   User? @relation("assigneeTasks", fields: [assigneeId], onDelete: SetNull, references: [id])
+  assigneeId Int?  @map("assignee_id")
+
+  column   Column @relation(fields: [columnId], onDelete: Cascade, references: [id])
+  columnId Int    @map("column_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("tasks")
+}
+
+model userBoards {
+  user   User @relation(fields: [userId], onDelete: Cascade, references: [id])
+  userId Int  @map("user_id")
+
+  board   Board @relation(fields: [boardId], onDelete: Cascade, references: [id])
+  boardId Int   @map("board_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@id([userId, boardId])
+  @@map("user_board")
+}
+
+model refreshTokens {
+  id        Int      @id @default(autoincrement())
+  token     String
+  expiresAt DateTime @map("expires_at")
+  user      User     @relation(fields: [userId], onDelete: Cascade, references: [id])
+  userId    Int      @map("user_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user_token")
+}
