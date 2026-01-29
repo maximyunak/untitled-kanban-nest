@@ -28,5 +28,23 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     $extends: runtime.Types.Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<OmitOpts>, ExtArgs, runtime.Types.Utils.Call<Prisma.TypeMapCb<OmitOpts>, {
         extArgs: ExtArgs;
     }>>;
+    get user(): Prisma.UserDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get board(): Prisma.BoardDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get column(): Prisma.ColumnDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get task(): Prisma.TaskDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get userBoards(): Prisma.userBoardsDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
+    get refreshTokens(): Prisma.refreshTokensDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
 }
 export declare function getPrismaClientClass(dirname: string): PrismaClientConstructor;
