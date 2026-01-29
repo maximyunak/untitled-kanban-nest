@@ -18,9 +18,4 @@ export class AuthController {
   create(@Body() registerDto: RegisterDto) {
     return this.authService.register(registerDto);
   }
-
-  @Get()
-  findAll() {
-    return this.authService.findAll();
-  }
 }

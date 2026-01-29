@@ -1,36 +1,55 @@
-import { Injectable } from "@nestjs/common";
-import { RegisterDto } from "./dto/register.dto";
-import * as bcrypt from "bcrypt";
-import { PrismaService } from "src/prisma/prisma.service";
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
+import { RegisterDto } from './dto/register.dto';
+import * as bcrypt from 'bcrypt';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-	constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) {}
 
-	async register(registerDto: RegisterDto) {
-		const { password } = registerDto;
-		const hashPassword = await bcrypt.hash(password, 10);
-		registerDto.password = hashPassword;
-		const user = await this.prisma.user.create({
-			data: registerDto,
-		});
+  async register(registerDto: RegisterDto) {
+    const { password, email, lastName, firstName, patronymic } = registerDto;
 
-		return user;
-	}
+    const isExistsUser = await this.prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
 
-	findAll() {
-		return `This action returns all auth`;
-	}
+    if (isExistsUser) {
+      throw new ConflictException('User with this email already exists');
+    }
 
-	findOne(id: number) {
-		return `This action returns a #${id} auth`;
-	}
+    const hashPassword = await bcrypt.hash(password, 10);
+    const { password: _, ...user } = await this.prisma.user.create({
+      data: {
+        email,
+        password: hashPassword,
+        lastName,
+        firstName,
+        patronymic,
+      },
+    });
 
-	update(id: number) {
-		return `This action updates a #${id} auth`;
-	}
+    return user;
+  }
 
-	remove(id: number) {
-		return `This action removes a #${id} auth`;
-	}
+  async login(loginDto: LoginDto) {}
+
+  findOne(id: number) {
+    return `This action returns a #${id} auth`;
+  }
+
+  update(id: number) {
+    return `This action updates a #${id} auth`;
+  }
+
+  remove(id: number) {
+    return `This action removes a #${id} auth`;
+  }
 }

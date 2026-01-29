@@ -1,4 +1,4 @@
-export declare class UpdateAuthDto {
+export declare class LoginDto {
     email: string;
     password: string;
 }

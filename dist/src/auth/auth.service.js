@@ -52,17 +52,28 @@ let AuthService = class AuthService {
         this.prisma = prisma;
     }
     async register(registerDto) {
-        const { password } = registerDto;
+        const { password, email, lastName, firstName, patronymic } = registerDto;
+        const isExistsUser = await this.prisma.user.findUnique({
+            where: {
+                email,
+            },
+        });
+        if (isExistsUser) {
+            throw new common_1.ConflictException('User with this email already exists');
+        }
         const hashPassword = await bcrypt.hash(password, 10);
-        registerDto.password = hashPassword;
-        const user = await this.prisma.user.create({
-            data: registerDto,
+        const { password: _, ...user } = await this.prisma.user.create({
+            data: {
+                email,
+                password: hashPassword,
+                lastName,
+                firstName,
+                patronymic,
+            },
         });
         return user;
     }
-    findAll() {
-        return `This action returns all auth`;
-    }
+    async login(loginDto) { }
     findOne(id) {
         return `This action returns a #${id} auth`;
     }
