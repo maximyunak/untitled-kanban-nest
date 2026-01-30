@@ -678,7 +678,6 @@ export type UserBoardsScalarFieldEnum = (typeof UserBoardsScalarFieldEnum)[keyof
 export declare const RefreshTokensScalarFieldEnum: {
     readonly id: "id";
     readonly token: "token";
-    readonly expiresAt: "expiresAt";
     readonly userId: "userId";
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";

@@ -16,12 +16,12 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
-  email        String  @unique
-  password     String
-  firstName    String  @map("first_name")
-  lastName     String  @map("last_name")
-  patronymic   String?
+  id         Int     @id @default(autoincrement())
+  email      String  @unique
+  password   String
+  firstName  String  @map("first_name")
+  lastName   String  @map("last_name")
+  patronymic String?
 
   createdAt     DateTime        @default(now()) @map("created_at")
   updatedAt     DateTime        @updatedAt @map("updated_at")
@@ -103,11 +103,10 @@ model userBoards {
 }
 
 model refreshTokens {
-  id        Int      @id @default(autoincrement())
-  token     String
-  expiresAt DateTime @map("expires_at")
-  user      User     @relation(fields: [userId], onDelete: Cascade, references: [id])
-  userId    Int      @map("user_id")
+  id     Int    @id @default(autoincrement())
+  token  String
+  user   User   @relation(fields: [userId], onDelete: Cascade, references: [id])
+  userId Int    @map("user_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

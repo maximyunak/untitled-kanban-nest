@@ -106,7 +106,6 @@ exports.UserBoardsScalarFieldEnum = {
 exports.RefreshTokensScalarFieldEnum = {
     id: 'id',
     token: 'token',
-    expiresAt: 'expiresAt',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'

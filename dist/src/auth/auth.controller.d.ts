@@ -1,9 +1,10 @@
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
+import { LoginDto } from './dto/login.dto';
 export declare class AuthController {
     private readonly authService;
     constructor(authService: AuthService);
-    create(registerDto: RegisterDto): Promise<{
+    register(registerDto: RegisterDto): Promise<{
         id: number;
         email: string;
         firstName: string;
@@ -12,4 +13,5 @@ export declare class AuthController {
         createdAt: Date;
         updatedAt: Date;
     }>;
+    login(loginDto: LoginDto): Promise<void>;
 }

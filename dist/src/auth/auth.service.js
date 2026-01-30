@@ -46,10 +46,16 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcrypt"));
 const prisma_service_1 = require("../prisma/prisma.service");
+const jwt_1 = require("@nestjs/jwt");
+const config_1 = require("@nestjs/config");
 let AuthService = class AuthService {
     prisma;
-    constructor(prisma) {
+    jwtService;
+    config;
+    constructor(prisma, jwtService, config) {
         this.prisma = prisma;
+        this.jwtService = jwtService;
+        this.config = config;
     }
     async register(registerDto) {
         const { password, email, lastName, firstName, patronymic } = registerDto;
@@ -73,7 +79,34 @@ let AuthService = class AuthService {
         });
         return user;
     }
-    async login(loginDto) { }
+    async login(loginDto) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                email: loginDto.email,
+            },
+        });
+        if (!user) {
+            throw new common_1.UnauthorizedException();
+        }
+        if (!(await bcrypt.compare(loginDto.password, user.password))) {
+            throw new common_1.UnauthorizedException();
+        }
+        const payload = {
+            id: user.id,
+            email: user.email,
+        };
+        const refreshToken = await this.jwtService.sign(payload, {
+            secret: this.config.get('REFRESH_SECRET'),
+            expiresIn: this.config.get('JWT_REFRESH_TTL'),
+        });
+        const accessToken = await this.jwtService.sign(payload, {
+            secret: this.config.get('ACCESS_SECRET'),
+            expiresIn: this.config.get('JWT_ACCESS_TTL'),
+        });
+        const hashToken = await bcrypt.hashSync(refreshToken, 10);
+        console.log(refreshToken, accessToken);
+        return;
+    }
     findOne(id) {
         return `This action returns a #${id} auth`;
     }
@@ -87,6 +120,8 @@ let AuthService = class AuthService {
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map
