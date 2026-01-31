@@ -9,11 +9,11 @@ export declare class AuthService {
     private config;
     constructor(prisma: PrismaService, jwtService: JwtService, config: ConfigService);
     register(registerDto: RegisterDto): Promise<{
-        id: number;
         email: string;
         firstName: string;
         lastName: string;
         patronymic: string | null;
+        id: number;
         createdAt: Date;
         updatedAt: Date;
     }>;
