@@ -46,29 +46,28 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const bcrypt = __importStar(require("bcrypt"));
 const prisma_service_1 = require("../prisma/prisma.service");
-const jwt_1 = require("@nestjs/jwt");
 const config_1 = require("@nestjs/config");
+const user_service_1 = require("../user/user.service");
+const token_service_1 = require("../token/token.service");
 let AuthService = class AuthService {
     prisma;
-    jwtService;
     config;
-    constructor(prisma, jwtService, config) {
+    userService;
+    tokenService;
+    constructor(prisma, config, userService, tokenService) {
         this.prisma = prisma;
-        this.jwtService = jwtService;
         this.config = config;
+        this.userService = userService;
+        this.tokenService = tokenService;
     }
     async register(registerDto) {
         const { password, email, lastName, firstName, patronymic } = registerDto;
-        const isExistsUser = await this.prisma.user.findUnique({
-            where: {
-                email,
-            },
-        });
-        if (isExistsUser) {
+        const existsUser = await this.userService.findByEmail(email);
+        if (existsUser) {
             throw new common_1.ConflictException('User with this email already exists');
         }
         const hashPassword = await bcrypt.hash(password, 10);
-        const { password: _, ...user } = await this.prisma.user.create({
+        const { password: _, ...user } = await this.prisma.users.create({
             data: {
                 email,
                 password: hashPassword,
@@ -80,29 +79,18 @@ let AuthService = class AuthService {
         return user;
     }
     async login(loginDto) {
-        const user = await this.prisma.user.findUnique({
-            where: {
-                email: loginDto.email,
-            },
-        });
+        const user = await this.userService.findByEmail(loginDto.email);
         if (!user) {
             throw new common_1.UnauthorizedException();
         }
         if (!(await bcrypt.compare(loginDto.password, user.password))) {
-            throw new common_1.UnauthorizedException();
+            throw new common_1.UnauthorizedException('Неправильный логин или пароль');
         }
         const payload = {
             id: user.id,
             email: user.email,
         };
-        const refreshToken = await this.jwtService.sign(payload, {
-            secret: this.config.get('REFRESH_SECRET'),
-            expiresIn: this.config.get('JWT_REFRESH_TTL'),
-        });
-        const accessToken = await this.jwtService.sign(payload, {
-            secret: this.config.get('ACCESS_SECRET'),
-            expiresIn: this.config.get('JWT_ACCESS_TTL'),
-        });
+        const { refreshToken, accessToken } = this.tokenService.generateTokens(payload);
         const hashToken = await bcrypt.hashSync(refreshToken, 10);
         console.log(refreshToken, accessToken);
         return;
@@ -121,7 +109,8 @@ exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [prisma_service_1.PrismaService,
-        jwt_1.JwtService,
-        config_1.ConfigService])
+        config_1.ConfigService,
+        user_service_1.UserService,
+        token_service_1.TokenService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

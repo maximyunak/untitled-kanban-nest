@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineExtension = exports.refreshTokensOrderByRelevanceFieldEnum = exports.TaskOrderByRelevanceFieldEnum = exports.ColumnOrderByRelevanceFieldEnum = exports.BoardOrderByRelevanceFieldEnum = exports.UserOrderByRelevanceFieldEnum = exports.NullsOrder = exports.SortOrder = exports.RefreshTokensScalarFieldEnum = exports.UserBoardsScalarFieldEnum = exports.TaskScalarFieldEnum = exports.ColumnScalarFieldEnum = exports.BoardScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.defineExtension = exports.refreshTokensOrderByRelevanceFieldEnum = exports.TasksOrderByRelevanceFieldEnum = exports.ColumnsOrderByRelevanceFieldEnum = exports.BoardsOrderByRelevanceFieldEnum = exports.UsersOrderByRelevanceFieldEnum = exports.NullsOrder = exports.SortOrder = exports.RefreshTokensScalarFieldEnum = exports.UserBoardsScalarFieldEnum = exports.TasksScalarFieldEnum = exports.ColumnsScalarFieldEnum = exports.BoardsScalarFieldEnum = exports.UsersScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/library"));
 exports.PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
 exports.PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
@@ -60,10 +60,10 @@ exports.DbNull = runtime.objectEnumValues.instances.DbNull;
 exports.JsonNull = runtime.objectEnumValues.instances.JsonNull;
 exports.AnyNull = runtime.objectEnumValues.instances.AnyNull;
 exports.ModelName = {
-    User: 'User',
-    Board: 'Board',
-    Column: 'Column',
-    Task: 'Task',
+    Users: 'Users',
+    Boards: 'Boards',
+    Columns: 'Columns',
+    Tasks: 'Tasks',
     userBoards: 'userBoards',
     refreshTokens: 'refreshTokens'
 };
@@ -73,7 +73,7 @@ exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
 });
-exports.UserScalarFieldEnum = {
+exports.UsersScalarFieldEnum = {
     id: 'id',
     email: 'email',
     password: 'password',
@@ -83,7 +83,7 @@ exports.UserScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.BoardScalarFieldEnum = {
+exports.BoardsScalarFieldEnum = {
     id: 'id',
     name: 'name',
     description: 'description',
@@ -91,7 +91,7 @@ exports.BoardScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.ColumnScalarFieldEnum = {
+exports.ColumnsScalarFieldEnum = {
     id: 'id',
     name: 'name',
     position: 'position',
@@ -99,7 +99,7 @@ exports.ColumnScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.TaskScalarFieldEnum = {
+exports.TasksScalarFieldEnum = {
     id: 'id',
     name: 'name',
     description: 'description',
@@ -133,21 +133,21 @@ exports.NullsOrder = {
     first: 'first',
     last: 'last'
 };
-exports.UserOrderByRelevanceFieldEnum = {
+exports.UsersOrderByRelevanceFieldEnum = {
     email: 'email',
     password: 'password',
     firstName: 'firstName',
     lastName: 'lastName',
     patronymic: 'patronymic'
 };
-exports.BoardOrderByRelevanceFieldEnum = {
+exports.BoardsOrderByRelevanceFieldEnum = {
     name: 'name',
     description: 'description'
 };
-exports.ColumnOrderByRelevanceFieldEnum = {
+exports.ColumnsOrderByRelevanceFieldEnum = {
     name: 'name'
 };
-exports.TaskOrderByRelevanceFieldEnum = {
+exports.TasksOrderByRelevanceFieldEnum = {
     name: 'name',
     description: 'description'
 };

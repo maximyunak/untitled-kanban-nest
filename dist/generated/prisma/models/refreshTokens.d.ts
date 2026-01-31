@@ -120,7 +120,7 @@ export type refreshTokensWhereInput = {
     userId?: Prisma.IntFilter<"refreshTokens"> | number;
     createdAt?: Prisma.DateTimeFilter<"refreshTokens"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"refreshTokens"> | Date | string;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>;
 };
 export type refreshTokensOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -128,7 +128,7 @@ export type refreshTokensOrderByWithRelationInput = {
     userId?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
-    user?: Prisma.UserOrderByWithRelationInput;
+    user?: Prisma.UsersOrderByWithRelationInput;
     _relevance?: Prisma.refreshTokensOrderByRelevanceInput;
 };
 export type refreshTokensWhereUniqueInput = Prisma.AtLeast<{
@@ -140,7 +140,7 @@ export type refreshTokensWhereUniqueInput = Prisma.AtLeast<{
     userId?: Prisma.IntFilter<"refreshTokens"> | number;
     createdAt?: Prisma.DateTimeFilter<"refreshTokens"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"refreshTokens"> | Date | string;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>;
 }, "id">;
 export type refreshTokensOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -168,7 +168,7 @@ export type refreshTokensCreateInput = {
     token: string;
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    user: Prisma.UserCreateNestedOneWithoutRefreshTokensInput;
+    user: Prisma.UsersCreateNestedOneWithoutRefreshTokensInput;
 };
 export type refreshTokensUncheckedCreateInput = {
     id?: number;
@@ -181,7 +181,7 @@ export type refreshTokensUpdateInput = {
     token?: Prisma.StringFieldUpdateOperationsInput | string;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    user?: Prisma.UserUpdateOneRequiredWithoutRefreshTokensNestedInput;
+    user?: Prisma.UsersUpdateOneRequiredWithoutRefreshTokensNestedInput;
 };
 export type refreshTokensUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -360,7 +360,7 @@ export type refreshTokensSelect<ExtArgs extends runtime.Types.Extensions.Interna
     userId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UsersDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["refreshTokens"]>;
 export type refreshTokensSelectScalar = {
     id?: boolean;
@@ -371,12 +371,12 @@ export type refreshTokensSelectScalar = {
 };
 export type refreshTokensOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["refreshTokens"]>;
 export type refreshTokensInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UsersDefaultArgs<ExtArgs>;
 };
 export type $refreshTokensPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "refreshTokens";
     objects: {
-        user: Prisma.$UserPayload<ExtArgs>;
+        user: Prisma.$UsersPayload<ExtArgs>;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
@@ -434,7 +434,7 @@ export interface refreshTokensDelegate<ExtArgs extends runtime.Types.Extensions.
 }
 export interface Prisma__refreshTokensClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    user<T extends Prisma.UsersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsersDefaultArgs<ExtArgs>>): Prisma.Prisma__UsersClient<runtime.Types.Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;

@@ -112,16 +112,16 @@ export type userBoardsWhereInput = {
     boardId?: Prisma.IntFilter<"userBoards"> | number;
     createdAt?: Prisma.DateTimeFilter<"userBoards"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"userBoards"> | Date | string;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
-    board?: Prisma.XOR<Prisma.BoardScalarRelationFilter, Prisma.BoardWhereInput>;
+    user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>;
+    board?: Prisma.XOR<Prisma.BoardsScalarRelationFilter, Prisma.BoardsWhereInput>;
 };
 export type userBoardsOrderByWithRelationInput = {
     userId?: Prisma.SortOrder;
     boardId?: Prisma.SortOrder;
     createdAt?: Prisma.SortOrder;
     updatedAt?: Prisma.SortOrder;
-    user?: Prisma.UserOrderByWithRelationInput;
-    board?: Prisma.BoardOrderByWithRelationInput;
+    user?: Prisma.UsersOrderByWithRelationInput;
+    board?: Prisma.BoardsOrderByWithRelationInput;
 };
 export type userBoardsWhereUniqueInput = Prisma.AtLeast<{
     userId_boardId?: Prisma.userBoardsUserIdBoardIdCompoundUniqueInput;
@@ -132,8 +132,8 @@ export type userBoardsWhereUniqueInput = Prisma.AtLeast<{
     boardId?: Prisma.IntFilter<"userBoards"> | number;
     createdAt?: Prisma.DateTimeFilter<"userBoards"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"userBoards"> | Date | string;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
-    board?: Prisma.XOR<Prisma.BoardScalarRelationFilter, Prisma.BoardWhereInput>;
+    user?: Prisma.XOR<Prisma.UsersScalarRelationFilter, Prisma.UsersWhereInput>;
+    board?: Prisma.XOR<Prisma.BoardsScalarRelationFilter, Prisma.BoardsWhereInput>;
 }, "userId_boardId">;
 export type userBoardsOrderByWithAggregationInput = {
     userId?: Prisma.SortOrder;
@@ -158,8 +158,8 @@ export type userBoardsScalarWhereWithAggregatesInput = {
 export type userBoardsCreateInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    user: Prisma.UserCreateNestedOneWithoutUserBoardsInput;
-    board: Prisma.BoardCreateNestedOneWithoutUserBoardsInput;
+    user: Prisma.UsersCreateNestedOneWithoutUserBoardsInput;
+    board: Prisma.BoardsCreateNestedOneWithoutUserBoardsInput;
 };
 export type userBoardsUncheckedCreateInput = {
     userId: number;
@@ -170,8 +170,8 @@ export type userBoardsUncheckedCreateInput = {
 export type userBoardsUpdateInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    user?: Prisma.UserUpdateOneRequiredWithoutUserBoardsNestedInput;
-    board?: Prisma.BoardUpdateOneRequiredWithoutUserBoardsNestedInput;
+    user?: Prisma.UsersUpdateOneRequiredWithoutUserBoardsNestedInput;
+    board?: Prisma.BoardsUpdateOneRequiredWithoutUserBoardsNestedInput;
 };
 export type userBoardsUncheckedUpdateInput = {
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -312,7 +312,7 @@ export type userBoardsUncheckedUpdateManyWithoutBoardNestedInput = {
 export type userBoardsCreateWithoutUserInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    board: Prisma.BoardCreateNestedOneWithoutUserBoardsInput;
+    board: Prisma.BoardsCreateNestedOneWithoutUserBoardsInput;
 };
 export type userBoardsUncheckedCreateWithoutUserInput = {
     boardId: number;
@@ -352,7 +352,7 @@ export type userBoardsScalarWhereInput = {
 export type userBoardsCreateWithoutBoardInput = {
     createdAt?: Date | string;
     updatedAt?: Date | string;
-    user: Prisma.UserCreateNestedOneWithoutUserBoardsInput;
+    user: Prisma.UsersCreateNestedOneWithoutUserBoardsInput;
 };
 export type userBoardsUncheckedCreateWithoutBoardInput = {
     userId: number;
@@ -388,7 +388,7 @@ export type userBoardsCreateManyUserInput = {
 export type userBoardsUpdateWithoutUserInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    board?: Prisma.BoardUpdateOneRequiredWithoutUserBoardsNestedInput;
+    board?: Prisma.BoardsUpdateOneRequiredWithoutUserBoardsNestedInput;
 };
 export type userBoardsUncheckedUpdateWithoutUserInput = {
     boardId?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -408,7 +408,7 @@ export type userBoardsCreateManyBoardInput = {
 export type userBoardsUpdateWithoutBoardInput = {
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    user?: Prisma.UserUpdateOneRequiredWithoutUserBoardsNestedInput;
+    user?: Prisma.UsersUpdateOneRequiredWithoutUserBoardsNestedInput;
 };
 export type userBoardsUncheckedUpdateWithoutBoardInput = {
     userId?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -425,8 +425,8 @@ export type userBoardsSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
     boardId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
-    board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UsersDefaultArgs<ExtArgs>;
+    board?: boolean | Prisma.BoardsDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["userBoards"]>;
 export type userBoardsSelectScalar = {
     userId?: boolean;
@@ -436,14 +436,14 @@ export type userBoardsSelectScalar = {
 };
 export type userBoardsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"userId" | "boardId" | "createdAt" | "updatedAt", ExtArgs["result"]["userBoards"]>;
 export type userBoardsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
-    board?: boolean | Prisma.BoardDefaultArgs<ExtArgs>;
+    user?: boolean | Prisma.UsersDefaultArgs<ExtArgs>;
+    board?: boolean | Prisma.BoardsDefaultArgs<ExtArgs>;
 };
 export type $userBoardsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     name: "userBoards";
     objects: {
-        user: Prisma.$UserPayload<ExtArgs>;
-        board: Prisma.$BoardPayload<ExtArgs>;
+        user: Prisma.$UsersPayload<ExtArgs>;
+        board: Prisma.$BoardsPayload<ExtArgs>;
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         userId: number;
@@ -500,8 +500,8 @@ export interface userBoardsDelegate<ExtArgs extends runtime.Types.Extensions.Int
 }
 export interface Prisma__userBoardsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise";
-    user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
-    board<T extends Prisma.BoardDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoardDefaultArgs<ExtArgs>>): Prisma.Prisma__BoardClient<runtime.Types.Result.GetResult<Prisma.$BoardPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    user<T extends Prisma.UsersDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UsersDefaultArgs<ExtArgs>>): Prisma.Prisma__UsersClient<runtime.Types.Result.GetResult<Prisma.$UsersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
+    board<T extends Prisma.BoardsDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.BoardsDefaultArgs<ExtArgs>>): Prisma.Prisma__BoardsClient<runtime.Types.Result.GetResult<Prisma.$BoardsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;

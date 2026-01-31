@@ -7,33 +7,30 @@ import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
-import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
-import { ms } from 'src/utils/ms.util';
+import { UserService } from 'src/user/user.service';
+import { TokenService } from 'src/token/token.service';
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
-    private jwtService: JwtService,
     private config: ConfigService,
+    private userService: UserService,
+    private tokenService: TokenService,
   ) {}
 
   async register(registerDto: RegisterDto) {
     const { password, email, lastName, firstName, patronymic } = registerDto;
 
-    const isExistsUser = await this.prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
+    const existsUser = await this.userService.findByEmail(email);
 
-    if (isExistsUser) {
+    if (existsUser) {
       throw new ConflictException('User with this email already exists');
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const { password: _, ...user } = await this.prisma.user.create({
+    const { password: _, ...user } = await this.prisma.users.create({
       data: {
         email,
         password: hashPassword,
@@ -47,17 +44,13 @@ export class AuthService {
   }
 
   async login(loginDto: LoginDto) {
-    const user = await this.prisma.user.findUnique({
-      where: {
-        email: loginDto.email,
-      },
-    });
+    const user = await this.userService.findByEmail(loginDto.email);
 
     if (!user) {
       throw new UnauthorizedException();
     }
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Неправильный логин или пароль');
     }
 
     const payload = {
@@ -65,15 +58,8 @@ export class AuthService {
       email: user.email,
     };
 
-    const refreshToken = await this.jwtService.sign(payload, {
-      secret: this.config.get('REFRESH_SECRET'),
-      expiresIn: this.config.get('JWT_REFRESH_TTL'),
-    });
-
-    const accessToken = await this.jwtService.sign(payload, {
-      secret: this.config.get('ACCESS_SECRET'),
-      expiresIn: this.config.get('JWT_ACCESS_TTL'),
-    });
+    const { refreshToken, accessToken } =
+      this.tokenService.generateTokens(payload);
 
     const hashToken = await bcrypt.hashSync(refreshToken, 10);
 
