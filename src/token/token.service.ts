@@ -43,4 +43,23 @@ export class TokenService {
       refreshTokenExpires,
     };
   }
+
+  async refreshAccess(token: string) {
+    const payload: TokenPayload = await this.jwtService.verifyAsync(token, {
+      secret: this.REFRESH_SECRET,
+    });
+
+    const accessToken = await this.jwtService.signAsync(
+      {
+        id: payload.id,
+        email: payload.email,
+      },
+      {
+        secret: this.ACCESS_SECRET,
+        expiresIn: this.JWT_ACCESS_TTL,
+      },
+    );
+
+    return { accessToken };
+  }
 }

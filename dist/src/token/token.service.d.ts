@@ -17,4 +17,7 @@ export declare class TokenService {
         accessToken: string;
         refreshTokenExpires: Date;
     }>;
+    refreshAccess(token: string): Promise<{
+        accessToken: string;
+    }>;
 }

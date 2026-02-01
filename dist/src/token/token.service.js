@@ -45,6 +45,19 @@ let TokenService = class TokenService {
             refreshTokenExpires,
         };
     }
+    async refreshAccess(token) {
+        const payload = await this.jwtService.verifyAsync(token, {
+            secret: this.REFRESH_SECRET,
+        });
+        const accessToken = await this.jwtService.signAsync({
+            id: payload.id,
+            email: payload.email,
+        }, {
+            secret: this.ACCESS_SECRET,
+            expiresIn: this.JWT_ACCESS_TTL,
+        });
+        return { accessToken };
+    }
 };
 exports.TokenService = TokenService;
 exports.TokenService = TokenService = __decorate([

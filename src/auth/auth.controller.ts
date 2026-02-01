@@ -9,11 +9,12 @@ import {
   HttpCode,
   HttpStatus,
   Res,
+  Req,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
-import type { Response } from 'express';
+import type { Request, Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -37,5 +38,10 @@ export class AuthController {
   @Post('/logout')
   logout(@Res({ passthrough: true }) res: Response) {
     return this.authService.logout(res);
+  }
+
+  @Get('/refresh')
+  refresh(@Res({ passthrough: true }) res: Response, @Req() req: Request) {
+    return this.authService.refresh(req, res);
   }
 }

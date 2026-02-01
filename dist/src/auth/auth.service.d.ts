@@ -4,7 +4,7 @@ import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 import { TokenService } from 'src/token/token.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 export declare class AuthService {
     private prisma;
     private config;
@@ -15,6 +15,9 @@ export declare class AuthService {
         accessToken: string;
     }>;
     login(res: Response, loginDto: LoginDto): Promise<{
+        accessToken: string;
+    }>;
+    refresh(req: Request, res: Response): Promise<{
         accessToken: string;
     }>;
     logout(res: Response): void;

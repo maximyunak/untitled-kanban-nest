@@ -96,6 +96,17 @@ let AuthService = class AuthService {
         };
         return this.auth(res, payload);
     }
+    async refresh(req, res) {
+        if (!req || !req.cookies) {
+            throw new common_1.UnauthorizedException('Не удалось получить куки авторизации');
+        }
+        const refreshToken = req.cookies['refreshToken'];
+        if (!refreshToken) {
+            throw new common_1.UnauthorizedException('Refresh токен не найден');
+        }
+        const accessToken = this.tokenService.refreshAccess(refreshToken);
+        return accessToken;
+    }
     logout(res) {
         this.setCookie(res, '', new Date(0));
     }

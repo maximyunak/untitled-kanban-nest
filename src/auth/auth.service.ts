@@ -10,7 +10,7 @@ import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 import { TokenPayload, TokenService } from 'src/token/token.service';
-import { Response } from 'express';
+import { Request, Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -65,6 +65,20 @@ export class AuthService {
     };
 
     return this.auth(res, payload);
+  }
+
+  async refresh(req: Request, res: Response) {
+    if (!req || !req.cookies) {
+      throw new UnauthorizedException('Не удалось получить куки авторизации');
+    }
+    const refreshToken = req.cookies['refreshToken'];
+
+    if (!refreshToken) {
+      throw new UnauthorizedException('Refresh токен не найден');
+    }
+
+    const accessToken = this.tokenService.refreshAccess(refreshToken);
+    return accessToken;
   }
 
   logout(res: Response) {
