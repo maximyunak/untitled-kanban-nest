@@ -18,14 +18,14 @@ let UserService = class UserService {
         this.prisma = prisma;
     }
     findOne(id) {
-        return this.prisma.users.findUnique({
+        return this.prisma.user.findUnique({
             where: {
                 id,
             },
         });
     }
     async findByEmail(email) {
-        return await this.prisma.users.findUnique({
+        return await this.prisma.user.findUnique({
             where: {
                 email,
             },

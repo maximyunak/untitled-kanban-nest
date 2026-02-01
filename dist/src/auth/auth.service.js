@@ -60,14 +60,14 @@ let AuthService = class AuthService {
         this.userService = userService;
         this.tokenService = tokenService;
     }
-    async register(registerDto) {
+    async register(res, registerDto) {
         const { password, email, lastName, firstName, patronymic } = registerDto;
         const existsUser = await this.userService.findByEmail(email);
         if (existsUser) {
             throw new common_1.ConflictException('User with this email already exists');
         }
         const hashPassword = await bcrypt.hash(password, 10);
-        const { password: _, ...user } = await this.prisma.users.create({
+        const { password: _, ...user } = await this.prisma.user.create({
             data: {
                 email,
                 password: hashPassword,
@@ -76,9 +76,13 @@ let AuthService = class AuthService {
                 patronymic,
             },
         });
-        return user;
+        const payload = {
+            id: user.id,
+            email: email,
+        };
+        return this.auth(res, payload);
     }
-    async login(loginDto) {
+    async login(res, loginDto) {
         const user = await this.userService.findByEmail(loginDto.email);
         if (!user) {
             throw new common_1.UnauthorizedException();
@@ -90,19 +94,24 @@ let AuthService = class AuthService {
             id: user.id,
             email: user.email,
         };
-        const { refreshToken, accessToken } = this.tokenService.generateTokens(payload);
-        const hashToken = await bcrypt.hashSync(refreshToken, 10);
-        console.log(refreshToken, accessToken);
-        return;
+        return this.auth(res, payload);
     }
-    findOne(id) {
-        return `This action returns a #${id} auth`;
+    logout(res) {
+        this.setCookie(res, '', new Date(0));
     }
-    update(id) {
-        return `This action updates a #${id} auth`;
+    async auth(res, payload) {
+        const { refreshToken, accessToken, refreshTokenExpires } = await this.tokenService.generateTokens(payload);
+        this.setCookie(res, refreshToken, refreshTokenExpires);
+        return { accessToken };
     }
-    remove(id) {
-        return `This action removes a #${id} auth`;
+    setCookie(res, value, expires) {
+        res.cookie('refreshToken', value, {
+            expires,
+            httpOnly: true,
+            sameSite: 'lax',
+            domain: this.config.getOrThrow('COOKIES_DOMAIN'),
+            secure: false,
+        });
     }
 };
 exports.AuthService = AuthService;

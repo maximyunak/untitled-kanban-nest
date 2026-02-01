@@ -144,7 +144,6 @@ export type UserWhereInput = {
     createdTasks?: Prisma.TaskListRelationFilter;
     assigneeTasks?: Prisma.TaskListRelationFilter;
     userBoards?: Prisma.UserBoardsListRelationFilter;
-    refreshTokens?: Prisma.RefreshTokensListRelationFilter;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -159,7 +158,6 @@ export type UserOrderByWithRelationInput = {
     createdTasks?: Prisma.TaskOrderByRelationAggregateInput;
     assigneeTasks?: Prisma.TaskOrderByRelationAggregateInput;
     userBoards?: Prisma.userBoardsOrderByRelationAggregateInput;
-    refreshTokens?: Prisma.refreshTokensOrderByRelationAggregateInput;
     _relevance?: Prisma.UserOrderByRelevanceInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -178,7 +176,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     createdTasks?: Prisma.TaskListRelationFilter;
     assigneeTasks?: Prisma.TaskListRelationFilter;
     userBoards?: Prisma.UserBoardsListRelationFilter;
-    refreshTokens?: Prisma.RefreshTokensListRelationFilter;
 }, "id" | "email">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -220,7 +217,6 @@ export type UserCreateInput = {
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateInput = {
     id?: number;
@@ -235,7 +231,6 @@ export type UserUncheckedCreateInput = {
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserUpdateInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -249,7 +244,6 @@ export type UserUpdateInput = {
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -264,7 +258,6 @@ export type UserUncheckedUpdateInput = {
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateManyInput = {
     id?: number;
@@ -410,18 +403,6 @@ export type UserUpdateOneRequiredWithoutUserBoardsNestedInput = {
     connect?: Prisma.UserWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserBoardsInput, Prisma.UserUpdateWithoutUserBoardsInput>, Prisma.UserUncheckedUpdateWithoutUserBoardsInput>;
 };
-export type UserCreateNestedOneWithoutRefreshTokensInput = {
-    create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
-    connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput;
-    connect?: Prisma.UserWhereUniqueInput;
-};
-export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
-    create?: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
-    connectOrCreate?: Prisma.UserCreateOrConnectWithoutRefreshTokensInput;
-    upsert?: Prisma.UserUpsertWithoutRefreshTokensInput;
-    connect?: Prisma.UserWhereUniqueInput;
-    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
-};
 export type UserCreateWithoutBoardsInput = {
     email: string;
     password: string;
@@ -433,7 +414,6 @@ export type UserCreateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutBoardsInput = {
     id?: number;
@@ -447,7 +427,6 @@ export type UserUncheckedCreateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutBoardsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -473,7 +452,6 @@ export type UserUpdateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutBoardsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -487,7 +465,6 @@ export type UserUncheckedUpdateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutCreatedTasksInput = {
     email: string;
@@ -500,7 +477,6 @@ export type UserCreateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutCreatedTasksInput = {
     id?: number;
@@ -514,7 +490,6 @@ export type UserUncheckedCreateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutCreatedTasksInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -531,7 +506,6 @@ export type UserCreateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutAssigneeTasksInput = {
     id?: number;
@@ -545,7 +519,6 @@ export type UserUncheckedCreateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutAssigneeTasksInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -571,7 +544,6 @@ export type UserUpdateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutCreatedTasksInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -585,7 +557,6 @@ export type UserUncheckedUpdateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserUpsertWithoutAssigneeTasksInput = {
     update: Prisma.XOR<Prisma.UserUpdateWithoutAssigneeTasksInput, Prisma.UserUncheckedUpdateWithoutAssigneeTasksInput>;
@@ -607,7 +578,6 @@ export type UserUpdateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutAssigneeTasksInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -621,7 +591,6 @@ export type UserUncheckedUpdateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutUserBoardsInput = {
     email: string;
@@ -634,7 +603,6 @@ export type UserCreateWithoutUserBoardsInput = {
     boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
-    refreshTokens?: Prisma.refreshTokensCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutUserBoardsInput = {
     id?: number;
@@ -648,7 +616,6 @@ export type UserUncheckedCreateWithoutUserBoardsInput = {
     boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutUserBoardsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -674,7 +641,6 @@ export type UserUpdateWithoutUserBoardsInput = {
     boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
-    refreshTokens?: Prisma.refreshTokensUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutUserBoardsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -688,88 +654,18 @@ export type UserUncheckedUpdateWithoutUserBoardsInput = {
     boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
-    refreshTokens?: Prisma.refreshTokensUncheckedUpdateManyWithoutUserNestedInput;
-};
-export type UserCreateWithoutRefreshTokensInput = {
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    patronymic?: string | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
-    createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
-    assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
-    userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
-};
-export type UserUncheckedCreateWithoutRefreshTokensInput = {
-    id?: number;
-    email: string;
-    password: string;
-    firstName: string;
-    lastName: string;
-    patronymic?: string | null;
-    createdAt?: Date | string;
-    updatedAt?: Date | string;
-    boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
-    createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
-    assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
-    userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
-};
-export type UserCreateOrConnectWithoutRefreshTokensInput = {
-    where: Prisma.UserWhereUniqueInput;
-    create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
-};
-export type UserUpsertWithoutRefreshTokensInput = {
-    update: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
-    create: Prisma.XOR<Prisma.UserCreateWithoutRefreshTokensInput, Prisma.UserUncheckedCreateWithoutRefreshTokensInput>;
-    where?: Prisma.UserWhereInput;
-};
-export type UserUpdateToOneWithWhereWithoutRefreshTokensInput = {
-    where?: Prisma.UserWhereInput;
-    data: Prisma.XOR<Prisma.UserUpdateWithoutRefreshTokensInput, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>;
-};
-export type UserUpdateWithoutRefreshTokensInput = {
-    email?: Prisma.StringFieldUpdateOperationsInput | string;
-    password?: Prisma.StringFieldUpdateOperationsInput | string;
-    firstName?: Prisma.StringFieldUpdateOperationsInput | string;
-    lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    patronymic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
-    createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
-    assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
-    userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
-};
-export type UserUncheckedUpdateWithoutRefreshTokensInput = {
-    id?: Prisma.IntFieldUpdateOperationsInput | number;
-    email?: Prisma.StringFieldUpdateOperationsInput | string;
-    password?: Prisma.StringFieldUpdateOperationsInput | string;
-    firstName?: Prisma.StringFieldUpdateOperationsInput | string;
-    lastName?: Prisma.StringFieldUpdateOperationsInput | string;
-    patronymic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-    boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
-    createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
-    assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
-    userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCountOutputType = {
     boards: number;
     createdTasks: number;
     assigneeTasks: number;
     userBoards: number;
-    refreshTokens: number;
 };
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     boards?: boolean | UserCountOutputTypeCountBoardsArgs;
     createdTasks?: boolean | UserCountOutputTypeCountCreatedTasksArgs;
     assigneeTasks?: boolean | UserCountOutputTypeCountAssigneeTasksArgs;
     userBoards?: boolean | UserCountOutputTypeCountUserBoardsArgs;
-    refreshTokens?: boolean | UserCountOutputTypeCountRefreshTokensArgs;
 };
 export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
@@ -786,9 +682,6 @@ export type UserCountOutputTypeCountAssigneeTasksArgs<ExtArgs extends runtime.Ty
 export type UserCountOutputTypeCountUserBoardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.userBoardsWhereInput;
 };
-export type UserCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    where?: Prisma.refreshTokensWhereInput;
-};
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     email?: boolean;
@@ -802,7 +695,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     createdTasks?: boolean | Prisma.User$createdTasksArgs<ExtArgs>;
     assigneeTasks?: boolean | Prisma.User$assigneeTasksArgs<ExtArgs>;
     userBoards?: boolean | Prisma.User$userBoardsArgs<ExtArgs>;
-    refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectScalar = {
@@ -821,7 +713,6 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     createdTasks?: boolean | Prisma.User$createdTasksArgs<ExtArgs>;
     assigneeTasks?: boolean | Prisma.User$assigneeTasksArgs<ExtArgs>;
     userBoards?: boolean | Prisma.User$userBoardsArgs<ExtArgs>;
-    refreshTokens?: boolean | Prisma.User$refreshTokensArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -831,7 +722,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         createdTasks: Prisma.$TaskPayload<ExtArgs>[];
         assigneeTasks: Prisma.$TaskPayload<ExtArgs>[];
         userBoards: Prisma.$userBoardsPayload<ExtArgs>[];
-        refreshTokens: Prisma.$refreshTokensPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
@@ -896,7 +786,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
     createdTasks<T extends Prisma.User$createdTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     assigneeTasks<T extends Prisma.User$assigneeTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assigneeTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     userBoards<T extends Prisma.User$userBoardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userBoardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$userBoardsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
-    refreshTokens<T extends Prisma.User$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$refreshTokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -1039,17 +928,6 @@ export type User$userBoardsArgs<ExtArgs extends runtime.Types.Extensions.Interna
     take?: number;
     skip?: number;
     distinct?: Prisma.UserBoardsScalarFieldEnum | Prisma.UserBoardsScalarFieldEnum[];
-};
-export type User$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-    select?: Prisma.refreshTokensSelect<ExtArgs> | null;
-    omit?: Prisma.refreshTokensOmit<ExtArgs> | null;
-    include?: Prisma.refreshTokensInclude<ExtArgs> | null;
-    where?: Prisma.refreshTokensWhereInput;
-    orderBy?: Prisma.refreshTokensOrderByWithRelationInput | Prisma.refreshTokensOrderByWithRelationInput[];
-    cursor?: Prisma.refreshTokensWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: Prisma.RefreshTokensScalarFieldEnum | Prisma.RefreshTokensScalarFieldEnum[];
 };
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserSelect<ExtArgs> | null;

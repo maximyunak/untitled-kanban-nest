@@ -2,7 +2,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export declare class UserService {
     private prisma;
     constructor(prisma: PrismaService);
-    findOne(id: number): import("../../generated/prisma/models").Prisma__UsersClient<{
+    findOne(id: number): import("../../generated/prisma/models").Prisma__UserClient<{
         id: number;
         email: string;
         password: string;

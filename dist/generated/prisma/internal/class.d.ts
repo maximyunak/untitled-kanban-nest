@@ -28,22 +28,19 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     $extends: runtime.Types.Extensions.ExtendsHook<"extends", Prisma.TypeMapCb<OmitOpts>, ExtArgs, runtime.Types.Utils.Call<Prisma.TypeMapCb<OmitOpts>, {
         extArgs: ExtArgs;
     }>>;
-    get users(): Prisma.UsersDelegate<ExtArgs, {
+    get user(): Prisma.UserDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
-    get boards(): Prisma.BoardsDelegate<ExtArgs, {
+    get board(): Prisma.BoardDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
-    get columns(): Prisma.ColumnsDelegate<ExtArgs, {
+    get column(): Prisma.ColumnDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
-    get tasks(): Prisma.TasksDelegate<ExtArgs, {
+    get task(): Prisma.TaskDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
     get userBoards(): Prisma.userBoardsDelegate<ExtArgs, {
-        omit: OmitOpts;
-    }>;
-    get refreshTokens(): Prisma.refreshTokensDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
 }

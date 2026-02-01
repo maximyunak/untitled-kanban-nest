@@ -9,7 +9,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
-import { TokenService } from 'src/token/token.service';
+import { TokenPayload, TokenService } from 'src/token/token.service';
+import { Response } from 'express';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +21,7 @@ export class AuthService {
     private tokenService: TokenService,
   ) {}
 
-  async register(registerDto: RegisterDto) {
+  async register(res: Response, registerDto: RegisterDto) {
     const { password, email, lastName, firstName, patronymic } = registerDto;
 
     const existsUser = await this.userService.findByEmail(email);
@@ -30,7 +31,7 @@ export class AuthService {
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const { password: _, ...user } = await this.prisma.users.create({
+    const { password: _, ...user } = await this.prisma.user.create({
       data: {
         email,
         password: hashPassword,
@@ -40,10 +41,15 @@ export class AuthService {
       },
     });
 
-    return user;
+    const payload: TokenPayload = {
+      id: user.id,
+      email: email,
+    };
+
+    return this.auth(res, payload);
   }
 
-  async login(loginDto: LoginDto) {
+  async login(res: Response, loginDto: LoginDto) {
     const user = await this.userService.findByEmail(loginDto.email);
 
     if (!user) {
@@ -53,29 +59,34 @@ export class AuthService {
       throw new UnauthorizedException('Неправильный логин или пароль');
     }
 
-    const payload = {
+    const payload: TokenPayload = {
       id: user.id,
       email: user.email,
     };
 
-    const { refreshToken, accessToken } =
-      this.tokenService.generateTokens(payload);
-
-    const hashToken = await bcrypt.hashSync(refreshToken, 10);
-
-    console.log(refreshToken, accessToken);
-    return;
+    return this.auth(res, payload);
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
+  logout(res: Response) {
+    this.setCookie(res, '', new Date(0));
   }
 
-  update(id: number) {
-    return `This action updates a #${id} auth`;
+  private async auth(res: Response, payload: TokenPayload) {
+    const { refreshToken, accessToken, refreshTokenExpires } =
+      await this.tokenService.generateTokens(payload);
+
+    this.setCookie(res, refreshToken, refreshTokenExpires);
+
+    return { accessToken };
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  private setCookie(res: Response, value: string, expires: Date) {
+    res.cookie('refreshToken', value, {
+      expires,
+      httpOnly: true,
+      sameSite: 'lax',
+      domain: this.config.getOrThrow('COOKIES_DOMAIN'),
+      secure: false,
+    });
   }
 }

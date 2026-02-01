@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.refreshTokensOrderByRelevanceFieldEnum = exports.TasksOrderByRelevanceFieldEnum = exports.ColumnsOrderByRelevanceFieldEnum = exports.BoardsOrderByRelevanceFieldEnum = exports.UsersOrderByRelevanceFieldEnum = exports.NullsOrder = exports.SortOrder = exports.RefreshTokensScalarFieldEnum = exports.UserBoardsScalarFieldEnum = exports.TasksScalarFieldEnum = exports.ColumnsScalarFieldEnum = exports.BoardsScalarFieldEnum = exports.UsersScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
+exports.TaskOrderByRelevanceFieldEnum = exports.ColumnOrderByRelevanceFieldEnum = exports.BoardOrderByRelevanceFieldEnum = exports.UserOrderByRelevanceFieldEnum = exports.NullsOrder = exports.SortOrder = exports.UserBoardsScalarFieldEnum = exports.TaskScalarFieldEnum = exports.ColumnScalarFieldEnum = exports.BoardScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.Decimal = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/index-browser"));
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
@@ -45,12 +45,11 @@ exports.DbNull = runtime.objectEnumValues.instances.DbNull;
 exports.JsonNull = runtime.objectEnumValues.instances.JsonNull;
 exports.AnyNull = runtime.objectEnumValues.instances.AnyNull;
 exports.ModelName = {
-    Users: 'Users',
-    Boards: 'Boards',
-    Columns: 'Columns',
-    Tasks: 'Tasks',
-    userBoards: 'userBoards',
-    refreshTokens: 'refreshTokens'
+    User: 'User',
+    Board: 'Board',
+    Column: 'Column',
+    Task: 'Task',
+    userBoards: 'userBoards'
 };
 exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     ReadUncommitted: 'ReadUncommitted',
@@ -58,7 +57,7 @@ exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     RepeatableRead: 'RepeatableRead',
     Serializable: 'Serializable'
 });
-exports.UsersScalarFieldEnum = {
+exports.UserScalarFieldEnum = {
     id: 'id',
     email: 'email',
     password: 'password',
@@ -68,7 +67,7 @@ exports.UsersScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.BoardsScalarFieldEnum = {
+exports.BoardScalarFieldEnum = {
     id: 'id',
     name: 'name',
     description: 'description',
@@ -76,7 +75,7 @@ exports.BoardsScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.ColumnsScalarFieldEnum = {
+exports.ColumnScalarFieldEnum = {
     id: 'id',
     name: 'name',
     position: 'position',
@@ -84,7 +83,7 @@ exports.ColumnsScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.TasksScalarFieldEnum = {
+exports.TaskScalarFieldEnum = {
     id: 'id',
     name: 'name',
     description: 'description',
@@ -103,13 +102,6 @@ exports.UserBoardsScalarFieldEnum = {
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
-exports.RefreshTokensScalarFieldEnum = {
-    id: 'id',
-    token: 'token',
-    userId: 'userId',
-    createdAt: 'createdAt',
-    updatedAt: 'updatedAt'
-};
 exports.SortOrder = {
     asc: 'asc',
     desc: 'desc'
@@ -118,25 +110,22 @@ exports.NullsOrder = {
     first: 'first',
     last: 'last'
 };
-exports.UsersOrderByRelevanceFieldEnum = {
+exports.UserOrderByRelevanceFieldEnum = {
     email: 'email',
     password: 'password',
     firstName: 'firstName',
     lastName: 'lastName',
     patronymic: 'patronymic'
 };
-exports.BoardsOrderByRelevanceFieldEnum = {
+exports.BoardOrderByRelevanceFieldEnum = {
     name: 'name',
     description: 'description'
 };
-exports.ColumnsOrderByRelevanceFieldEnum = {
+exports.ColumnOrderByRelevanceFieldEnum = {
     name: 'name'
 };
-exports.TasksOrderByRelevanceFieldEnum = {
+exports.TaskOrderByRelevanceFieldEnum = {
     name: 'name',
     description: 'description'
-};
-exports.refreshTokensOrderByRelevanceFieldEnum = {
-    token: 'token'
 };
 //# sourceMappingURL=prismaNamespaceBrowser.js.map

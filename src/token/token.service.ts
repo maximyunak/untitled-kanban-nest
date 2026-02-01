@@ -1,27 +1,46 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
+import { ms } from 'src/utils/ms.util';
+
+export type TokenPayload = {
+  id: number;
+  email: string;
+};
 
 @Injectable()
 export class TokenService {
+  private readonly JWT_REFRESH_TTL;
+  private readonly REFRESH_SECRET;
+  private readonly ACCESS_SECRET;
+  private readonly JWT_ACCESS_TTL;
+
   constructor(
     private config: ConfigService,
     private jwtService: JwtService,
-  ) {}
-  generateTokens(payload) {
-    const refreshToken = this.jwtService.sign(payload, {
-      secret: this.config.get('REFRESH_SECRET'),
-      expiresIn: this.config.get('JWT_REFRESH_TTL'),
+  ) {
+    this.REFRESH_SECRET = this.config.getOrThrow<string>('REFRESH_SECRET');
+    this.JWT_REFRESH_TTL = this.config.getOrThrow<string>('JWT_REFRESH_TTL');
+    this.ACCESS_SECRET = this.config.getOrThrow<string>('ACCESS_SECRET');
+    this.JWT_ACCESS_TTL = this.config.getOrThrow<string>('JWT_ACCESS_TTL');
+  }
+  async generateTokens(payload: TokenPayload) {
+    const refreshToken = await this.jwtService.signAsync(payload, {
+      secret: this.REFRESH_SECRET,
+      expiresIn: this.JWT_REFRESH_TTL,
     });
 
-    const accessToken = this.jwtService.sign(payload, {
-      secret: this.config.get('ACCESS_SECRET'),
-      expiresIn: this.config.get('JWT_ACCESS_TTL'),
+    const accessToken = await this.jwtService.signAsync(payload, {
+      secret: this.ACCESS_SECRET,
+      expiresIn: this.JWT_ACCESS_TTL,
     });
+
+    const refreshTokenExpires = new Date(Date.now() + ms(this.JWT_REFRESH_TTL));
 
     return {
       refreshToken,
       accessToken,
+      refreshTokenExpires,
     };
   }
 }

@@ -26,12 +26,11 @@ export declare const AnyNull: {
     toString(): string;
 };
 export declare const ModelName: {
-    readonly Users: "Users";
-    readonly Boards: "Boards";
-    readonly Columns: "Columns";
-    readonly Tasks: "Tasks";
+    readonly User: "User";
+    readonly Board: "Board";
+    readonly Column: "Column";
+    readonly Task: "Task";
     readonly userBoards: "userBoards";
-    readonly refreshTokens: "refreshTokens";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -41,7 +40,7 @@ export declare const TransactionIsolationLevel: {
     readonly Serializable: "Serializable";
 };
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
-export declare const UsersScalarFieldEnum: {
+export declare const UserScalarFieldEnum: {
     readonly id: "id";
     readonly email: "email";
     readonly password: "password";
@@ -51,8 +50,8 @@ export declare const UsersScalarFieldEnum: {
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
-export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum];
-export declare const BoardsScalarFieldEnum: {
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+export declare const BoardScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";
     readonly description: "description";
@@ -60,8 +59,8 @@ export declare const BoardsScalarFieldEnum: {
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
-export type BoardsScalarFieldEnum = (typeof BoardsScalarFieldEnum)[keyof typeof BoardsScalarFieldEnum];
-export declare const ColumnsScalarFieldEnum: {
+export type BoardScalarFieldEnum = (typeof BoardScalarFieldEnum)[keyof typeof BoardScalarFieldEnum];
+export declare const ColumnScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";
     readonly position: "position";
@@ -69,8 +68,8 @@ export declare const ColumnsScalarFieldEnum: {
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
-export type ColumnsScalarFieldEnum = (typeof ColumnsScalarFieldEnum)[keyof typeof ColumnsScalarFieldEnum];
-export declare const TasksScalarFieldEnum: {
+export type ColumnScalarFieldEnum = (typeof ColumnScalarFieldEnum)[keyof typeof ColumnScalarFieldEnum];
+export declare const TaskScalarFieldEnum: {
     readonly id: "id";
     readonly name: "name";
     readonly description: "description";
@@ -83,7 +82,7 @@ export declare const TasksScalarFieldEnum: {
     readonly createdAt: "createdAt";
     readonly updatedAt: "updatedAt";
 };
-export type TasksScalarFieldEnum = (typeof TasksScalarFieldEnum)[keyof typeof TasksScalarFieldEnum];
+export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum];
 export declare const UserBoardsScalarFieldEnum: {
     readonly userId: "userId";
     readonly boardId: "boardId";
@@ -91,14 +90,6 @@ export declare const UserBoardsScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type UserBoardsScalarFieldEnum = (typeof UserBoardsScalarFieldEnum)[keyof typeof UserBoardsScalarFieldEnum];
-export declare const RefreshTokensScalarFieldEnum: {
-    readonly id: "id";
-    readonly token: "token";
-    readonly userId: "userId";
-    readonly createdAt: "createdAt";
-    readonly updatedAt: "updatedAt";
-};
-export type RefreshTokensScalarFieldEnum = (typeof RefreshTokensScalarFieldEnum)[keyof typeof RefreshTokensScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -109,29 +100,25 @@ export declare const NullsOrder: {
     readonly last: "last";
 };
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
-export declare const UsersOrderByRelevanceFieldEnum: {
+export declare const UserOrderByRelevanceFieldEnum: {
     readonly email: "email";
     readonly password: "password";
     readonly firstName: "firstName";
     readonly lastName: "lastName";
     readonly patronymic: "patronymic";
 };
-export type UsersOrderByRelevanceFieldEnum = (typeof UsersOrderByRelevanceFieldEnum)[keyof typeof UsersOrderByRelevanceFieldEnum];
-export declare const BoardsOrderByRelevanceFieldEnum: {
+export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum];
+export declare const BoardOrderByRelevanceFieldEnum: {
     readonly name: "name";
     readonly description: "description";
 };
-export type BoardsOrderByRelevanceFieldEnum = (typeof BoardsOrderByRelevanceFieldEnum)[keyof typeof BoardsOrderByRelevanceFieldEnum];
-export declare const ColumnsOrderByRelevanceFieldEnum: {
+export type BoardOrderByRelevanceFieldEnum = (typeof BoardOrderByRelevanceFieldEnum)[keyof typeof BoardOrderByRelevanceFieldEnum];
+export declare const ColumnOrderByRelevanceFieldEnum: {
     readonly name: "name";
 };
-export type ColumnsOrderByRelevanceFieldEnum = (typeof ColumnsOrderByRelevanceFieldEnum)[keyof typeof ColumnsOrderByRelevanceFieldEnum];
-export declare const TasksOrderByRelevanceFieldEnum: {
+export type ColumnOrderByRelevanceFieldEnum = (typeof ColumnOrderByRelevanceFieldEnum)[keyof typeof ColumnOrderByRelevanceFieldEnum];
+export declare const TaskOrderByRelevanceFieldEnum: {
     readonly name: "name";
     readonly description: "description";
 };
-export type TasksOrderByRelevanceFieldEnum = (typeof TasksOrderByRelevanceFieldEnum)[keyof typeof TasksOrderByRelevanceFieldEnum];
-export declare const refreshTokensOrderByRelevanceFieldEnum: {
-    readonly token: "token";
-};
-export type refreshTokensOrderByRelevanceFieldEnum = (typeof refreshTokensOrderByRelevanceFieldEnum)[keyof typeof refreshTokensOrderByRelevanceFieldEnum];
+export type TaskOrderByRelevanceFieldEnum = (typeof TaskOrderByRelevanceFieldEnum)[keyof typeof TaskOrderByRelevanceFieldEnum];
