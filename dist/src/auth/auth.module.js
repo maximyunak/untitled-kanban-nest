@@ -13,14 +13,16 @@ const auth_controller_1 = require("./auth.controller");
 const jwt_1 = require("@nestjs/jwt");
 const user_module_1 = require("../user/user.module");
 const token_module_1 = require("../token/token.module");
+const jwt_strategy_1 = require("./strategies/jwt.strategy");
+const passport_1 = require("@nestjs/passport");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         controllers: [auth_controller_1.AuthController],
-        providers: [auth_service_1.AuthService],
-        imports: [jwt_1.JwtModule, user_module_1.UserModule, token_module_1.TokenModule],
+        providers: [auth_service_1.AuthService, jwt_strategy_1.JwtStrategy],
+        imports: [jwt_1.JwtModule, user_module_1.UserModule, token_module_1.TokenModule, passport_1.PassportModule],
     })
 ], AuthModule);
 //# sourceMappingURL=auth.module.js.map

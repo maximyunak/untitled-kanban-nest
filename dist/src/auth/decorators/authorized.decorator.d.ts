@@ -1,0 +1,1 @@
+export declare const Authorizated: (...dataOrPipes: ("id" | "email" | "password" | "firstName" | "lastName" | "patronymic" | "createdAt" | "updatedAt" | import("@nestjs/common").PipeTransform<any, any> | import("@nestjs/common").Type<import("@nestjs/common").PipeTransform<any, any>>)[]) => ParameterDecorator;
