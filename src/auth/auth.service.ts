@@ -67,7 +67,7 @@ export class AuthService {
     return this.auth(res, payload);
   }
 
-  async refresh(req: Request, res: Response) {
+  async refresh(req: Request) {
     if (!req || !req.cookies) {
       throw new UnauthorizedException('Не удалось получить куки авторизации');
     }

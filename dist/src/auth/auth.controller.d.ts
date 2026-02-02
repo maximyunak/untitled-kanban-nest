@@ -12,7 +12,7 @@ export declare class AuthController {
         accessToken: string;
     }>;
     logout(res: Response): void;
-    refresh(res: Response, req: Request): Promise<{
+    refresh(req: Request): Promise<{
         accessToken: string;
     }>;
 }

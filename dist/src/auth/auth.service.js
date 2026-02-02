@@ -96,7 +96,7 @@ let AuthService = class AuthService {
         };
         return this.auth(res, payload);
     }
-    async refresh(req, res) {
+    async refresh(req) {
         if (!req || !req.cookies) {
             throw new common_1.UnauthorizedException('Не удалось получить куки авторизации');
         }

@@ -9,6 +9,15 @@ export class UserService {
       where: {
         id,
       },
+      select: {
+        id: true,
+        email: true,
+        firstName: true,
+        lastName: true,
+        patronymic: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
 
     if (!user) throw new NotFoundException('Пользователь не найден');
@@ -22,7 +31,6 @@ export class UserService {
       },
     });
 
-    if (!user) throw new NotFoundException('Пользователь не найден');
     return user;
   }
 }

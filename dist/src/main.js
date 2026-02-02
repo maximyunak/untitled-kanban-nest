@@ -8,6 +8,7 @@ const app_module_1 = require("./app.module");
 const common_1 = require("@nestjs/common");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const config_1 = require("@nestjs/config");
+const swagger_util_1 = require("./utils/swagger.util");
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     const config = app.get(config_1.ConfigService);
@@ -16,6 +17,7 @@ async function bootstrap() {
         credentials: true,
         origin: true,
     });
+    (0, swagger_util_1.setupSwagger)(app);
     app.useGlobalPipes(new common_1.ValidationPipe({
         transform: true,
     }));

@@ -17,7 +17,7 @@ export declare class AuthService {
     login(res: Response, loginDto: LoginDto): Promise<{
         accessToken: string;
     }>;
-    refresh(req: Request, res: Response): Promise<{
+    refresh(req: Request): Promise<{
         accessToken: string;
     }>;
     logout(res: Response): void;

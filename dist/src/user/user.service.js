@@ -22,6 +22,15 @@ let UserService = class UserService {
             where: {
                 id,
             },
+            select: {
+                id: true,
+                email: true,
+                firstName: true,
+                lastName: true,
+                patronymic: true,
+                createdAt: true,
+                updatedAt: true,
+            },
         });
         if (!user)
             throw new common_1.NotFoundException('Пользователь не найден');
@@ -33,8 +42,6 @@ let UserService = class UserService {
                 email,
             },
         });
-        if (!user)
-            throw new common_1.NotFoundException('Пользователь не найден');
         return user;
     }
 };
