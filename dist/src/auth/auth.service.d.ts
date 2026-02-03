@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
-import { TokenService } from 'src/token/token.service';
+import { TokenService } from 'src/auth/token.service';
 import { Request, Response } from 'express';
 export declare class AuthService {
     private prisma;

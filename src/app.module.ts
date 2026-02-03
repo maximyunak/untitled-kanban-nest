@@ -2,19 +2,19 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { JwtModule } from '@nestjs/jwt';
 import { UserModule } from './user/user.module';
-import { TokenModule } from './token/token.module';
 
 @Module({
   imports: [
+    // core
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    AuthModule,
     PrismaModule,
+    // auth
+    AuthModule,
+    // domains
     UserModule,
-    TokenModule,
   ],
 })
 export class AppModule {}

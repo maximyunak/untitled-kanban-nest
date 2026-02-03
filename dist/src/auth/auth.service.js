@@ -48,7 +48,7 @@ const bcrypt = __importStar(require("bcrypt"));
 const prisma_service_1 = require("../prisma/prisma.service");
 const config_1 = require("@nestjs/config");
 const user_service_1 = require("../user/user.service");
-const token_service_1 = require("../token/token.service");
+const token_service_1 = require("./token.service");
 let AuthService = class AuthService {
     prisma;
     config;
