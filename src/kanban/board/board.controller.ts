@@ -7,6 +7,7 @@ import {
   Proppatch,
   Param,
   UseGuards,
+  Delete,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -54,7 +55,13 @@ export class BoardController {
 
   @UseGuards(BoardGuard)
   @Patch('/:id')
-  update(@Param('id') boardId: number, @Body() updateBoardDto: UpdateBoardDto) {
-    return this.boardService.update(boardId, updateBoardDto);
+  update(@Param('id') boardId: string, @Body() updateBoardDto: UpdateBoardDto) {
+    return this.boardService.update(+boardId, updateBoardDto);
+  }
+
+  @UseGuards(BoardGuard)
+  @Delete('/:id')
+  deleteBoard(@Param('id') boardId: string) {
+    return this.boardService.remove(+boardId);
   }
 }
