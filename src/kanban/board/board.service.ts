@@ -38,15 +38,25 @@ export class BoardService {
     return { boards };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} board`;
-  }
-
-  update(id: number, updateBoardDto: UpdateBoardDto) {
-    return `This action updates a #${id} board`;
+  async update(id: number, updateBoardDto: UpdateBoardDto) {
+    const board = await this.prisma.board.update({
+      data: updateBoardDto,
+      where: {
+        id,
+      },
+    });
+    return board;
   }
 
   remove(id: number) {
     return `This action removes a #${id} board`;
+  }
+
+  async findOne(id: number) {
+    return await this.prisma.board.findUnique({
+      where: {
+        id,
+      },
+    });
   }
 }

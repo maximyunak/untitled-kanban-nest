@@ -1,15 +1,25 @@
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Patch,
+  Proppatch,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { Authorizated, Protected } from 'src/auth/decorators';
 import {
-  ApiBearerAuth,
   ApiOkResponse,
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { BoardResponse } from './dto/boards.dto';
 import { CreateBoardResponse } from './dto/create-board-response.dto';
+import { UpdateBoardDto } from './dto/update-board.dto';
+import { BoardGuard } from './guards/board.guard';
 
 @Protected()
 @Controller('boards')
@@ -40,5 +50,11 @@ export class BoardController {
   @Get('/my')
   my(@Authorizated('id') userId: number) {
     return this.boardService.findAll(userId);
+  }
+
+  @UseGuards(BoardGuard)
+  @Patch('/:id')
+  update(@Param('id') boardId: number, @Body() updateBoardDto: UpdateBoardDto) {
+    return this.boardService.update(boardId, updateBoardDto);
   }
 }
