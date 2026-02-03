@@ -43,7 +43,7 @@ const config = {
             "value": "prisma-client"
         },
         "output": {
-            "value": "/home/maxik/reps/nuxt/backend-nest/generated/prisma",
+            "value": "/home/maxik/reps/nuxt/untitled-kanban-nest/generated/prisma",
             "fromEnvVar": null
         },
         "config": {
@@ -58,7 +58,7 @@ const config = {
             }
         ],
         "previewFeatures": [],
-        "sourceFilePath": "/home/maxik/reps/nuxt/backend-nest/prisma/schema.prisma",
+        "sourceFilePath": "/home/maxik/reps/nuxt/untitled-kanban-nest/prisma/schema.prisma",
         "isCustomOutput": true
     },
     "relativePath": "../../prisma",
