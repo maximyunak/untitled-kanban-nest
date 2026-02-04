@@ -1,13 +1,12 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { BoardService } from '../board.service';
+
 @Injectable()
-export class BoardGuard implements CanActivate {
+export class BoardAccessGuard implements CanActivate {
   constructor(private boardService: BoardService) {}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
 
-    const board = await this.boardService.findOne(+req.params.id);
-
-    return board?.creatorId === req.user.id;
+    return await this.boardService.hasAccess(req.user.id, +req.params.boardId);
   }
 }

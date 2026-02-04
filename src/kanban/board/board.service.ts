@@ -62,8 +62,21 @@ export class BoardService {
         id,
       },
     });
-    if (!board) throw new NotFoundException(`board with id ${id} not found`);
+    if (!board) throw new NotFoundException(`Board with id ${id} not found`);
 
     return board;
+  }
+
+  async hasAccess(userId: number, boardId: number) {
+    const relation = await this.prisma.userBoards.findUnique({
+      where: {
+        userId_boardId: {
+          userId,
+          boardId,
+        },
+      },
+    });
+
+    return !!relation;
   }
 }

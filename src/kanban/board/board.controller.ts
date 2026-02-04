@@ -20,7 +20,7 @@ import {
 import { BoardResponse } from './dto/boards.dto';
 import { CreateBoardResponse } from './dto/create-board-response.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
-import { BoardGuard } from './guards/board.guard';
+import { BoardOwnerGuard } from './guards/board-owner.guard';
 
 @Protected()
 @Controller('boards')
@@ -53,13 +53,13 @@ export class BoardController {
     return this.boardService.findAll(userId);
   }
 
-  @UseGuards(BoardGuard)
+  @UseGuards(BoardOwnerGuard)
   @Patch('/:id')
   update(@Param('id') boardId: string, @Body() updateBoardDto: UpdateBoardDto) {
     return this.boardService.update(+boardId, updateBoardDto);
   }
 
-  @UseGuards(BoardGuard)
+  @UseGuards(BoardOwnerGuard)
   @Delete('/:id')
   deleteBoard(@Param('id') boardId: string) {
     return this.boardService.remove(+boardId);
