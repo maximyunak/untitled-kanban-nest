@@ -7,12 +7,22 @@ export class ColumnService {
   constructor(private prisma: PrismaService) {}
 
   async create(boardId: number, dto: CreateColumnDto) {
-    console.log(dto);
+    const lastColumn = await this.prisma.column.findFirst({
+      where: {
+        boardId,
+      },
+      orderBy: {
+        position: 'desc',
+      },
+    });
+
+    const position = lastColumn ? lastColumn.position + 1 : 0;
 
     const column = await this.prisma.column.create({
       data: {
         ...dto,
         boardId,
+        position,
       },
     });
 
