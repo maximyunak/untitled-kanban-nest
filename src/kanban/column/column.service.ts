@@ -28,4 +28,43 @@ export class ColumnService {
 
     return { column };
   }
+
+  async move(id: number, toPosition: number) {
+    const column = await this.prisma.column.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    const columns = await this.prisma.column.findMany({
+      where: {
+        boardId: column?.boardId,
+      },
+      orderBy: {
+        position: 'asc',
+      },
+    });
+
+    const oldIndex = columns.findIndex((el) => el.id === column?.id);
+
+    const [moved] = columns.splice(oldIndex, 1);
+
+    columns.splice(toPosition, 0, moved);
+
+    const updated = await this.prisma.$transaction(
+      columns.map((col, idx) =>
+        this.prisma.column.update({
+          where: {
+            id: col.id,
+          },
+          data: {
+            position: idx,
+          },
+        }),
+      ),
+    );
+    return {
+      columns: updated.sort((a, b) => a.position - b.position),
+    };
+  }
 }
