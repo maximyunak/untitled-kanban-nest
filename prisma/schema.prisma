@@ -65,12 +65,12 @@ model Column {
 }
 
 model Task {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   name        String
   description String?
-  isCompleted Boolean  @default(false) @map("is_completed")
-  position    Int      @default(0)
-  deadline    DateTime
+  isCompleted Boolean   @default(false) @map("is_completed")
+  position    Int       @default(0)
+  deadline    DateTime?
 
   creator   User @relation("createdTasks", fields: [creatorId], onDelete: Cascade, references: [id])
   creatorId Int  @map("creator_id")

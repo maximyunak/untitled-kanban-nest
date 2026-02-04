@@ -10,11 +10,11 @@ export declare class JwtStrategy extends JwtStrategy_base {
     private config;
     constructor(userService: UserService, config: ConfigService);
     validate(payload: TokenPayload): Promise<{
+        id: number;
         email: string;
         firstName: string;
         lastName: string;
         patronymic: string | null;
-        id: number;
         createdAt: Date;
         updatedAt: Date;
     }>;

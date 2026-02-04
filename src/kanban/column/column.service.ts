@@ -82,4 +82,12 @@ export class ColumnService {
       },
     });
   }
+
+  async findOne(columnId: number) {
+    return await this.prisma.column.findUnique({
+      where: {
+        id: columnId,
+      },
+    });
+  }
 }

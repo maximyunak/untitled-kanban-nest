@@ -150,7 +150,7 @@ export type TaskGroupByOutputType = {
     description: string | null;
     isCompleted: boolean;
     position: number;
-    deadline: Date;
+    deadline: Date | null;
     creatorId: number;
     assigneeId: number | null;
     columnId: number;
@@ -174,7 +174,7 @@ export type TaskWhereInput = {
     description?: Prisma.StringNullableFilter<"Task"> | string | null;
     isCompleted?: Prisma.BoolFilter<"Task"> | boolean;
     position?: Prisma.IntFilter<"Task"> | number;
-    deadline?: Prisma.DateTimeFilter<"Task"> | Date | string;
+    deadline?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null;
     creatorId?: Prisma.IntFilter<"Task"> | number;
     assigneeId?: Prisma.IntNullableFilter<"Task"> | number | null;
     columnId?: Prisma.IntFilter<"Task"> | number;
@@ -190,7 +190,7 @@ export type TaskOrderByWithRelationInput = {
     description?: Prisma.SortOrderInput | Prisma.SortOrder;
     isCompleted?: Prisma.SortOrder;
     position?: Prisma.SortOrder;
-    deadline?: Prisma.SortOrder;
+    deadline?: Prisma.SortOrderInput | Prisma.SortOrder;
     creatorId?: Prisma.SortOrder;
     assigneeId?: Prisma.SortOrderInput | Prisma.SortOrder;
     columnId?: Prisma.SortOrder;
@@ -210,7 +210,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
     description?: Prisma.StringNullableFilter<"Task"> | string | null;
     isCompleted?: Prisma.BoolFilter<"Task"> | boolean;
     position?: Prisma.IntFilter<"Task"> | number;
-    deadline?: Prisma.DateTimeFilter<"Task"> | Date | string;
+    deadline?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null;
     creatorId?: Prisma.IntFilter<"Task"> | number;
     assigneeId?: Prisma.IntNullableFilter<"Task"> | number | null;
     columnId?: Prisma.IntFilter<"Task"> | number;
@@ -226,7 +226,7 @@ export type TaskOrderByWithAggregationInput = {
     description?: Prisma.SortOrderInput | Prisma.SortOrder;
     isCompleted?: Prisma.SortOrder;
     position?: Prisma.SortOrder;
-    deadline?: Prisma.SortOrder;
+    deadline?: Prisma.SortOrderInput | Prisma.SortOrder;
     creatorId?: Prisma.SortOrder;
     assigneeId?: Prisma.SortOrderInput | Prisma.SortOrder;
     columnId?: Prisma.SortOrder;
@@ -247,7 +247,7 @@ export type TaskScalarWhereWithAggregatesInput = {
     description?: Prisma.StringNullableWithAggregatesFilter<"Task"> | string | null;
     isCompleted?: Prisma.BoolWithAggregatesFilter<"Task"> | boolean;
     position?: Prisma.IntWithAggregatesFilter<"Task"> | number;
-    deadline?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string;
+    deadline?: Prisma.DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null;
     creatorId?: Prisma.IntWithAggregatesFilter<"Task"> | number;
     assigneeId?: Prisma.IntNullableWithAggregatesFilter<"Task"> | number | null;
     columnId?: Prisma.IntWithAggregatesFilter<"Task"> | number;
@@ -259,7 +259,7 @@ export type TaskCreateInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     creator: Prisma.UserCreateNestedOneWithoutCreatedTasksInput;
@@ -272,7 +272,7 @@ export type TaskUncheckedCreateInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     creatorId: number;
     assigneeId?: number | null;
     columnId: number;
@@ -284,7 +284,7 @@ export type TaskUpdateInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     creator?: Prisma.UserUpdateOneRequiredWithoutCreatedTasksNestedInput;
@@ -297,7 +297,7 @@ export type TaskUncheckedUpdateInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     creatorId?: Prisma.IntFieldUpdateOperationsInput | number;
     assigneeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     columnId?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -310,7 +310,7 @@ export type TaskCreateManyInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     creatorId: number;
     assigneeId?: number | null;
     columnId: number;
@@ -322,7 +322,7 @@ export type TaskUpdateManyMutationInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -332,7 +332,7 @@ export type TaskUncheckedUpdateManyInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     creatorId?: Prisma.IntFieldUpdateOperationsInput | number;
     assigneeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     columnId?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -522,6 +522,9 @@ export type TaskUncheckedUpdateManyWithoutColumnNestedInput = {
 export type BoolFieldUpdateOperationsInput = {
     set?: boolean;
 };
+export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null;
+};
 export type NullableIntFieldUpdateOperationsInput = {
     set?: number | null;
     increment?: number;
@@ -534,7 +537,7 @@ export type TaskCreateWithoutCreatorInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     assignee?: Prisma.UserCreateNestedOneWithoutAssigneeTasksInput;
@@ -546,7 +549,7 @@ export type TaskUncheckedCreateWithoutCreatorInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     assigneeId?: number | null;
     columnId: number;
     createdAt?: Date | string;
@@ -565,7 +568,7 @@ export type TaskCreateWithoutAssigneeInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     creator: Prisma.UserCreateNestedOneWithoutCreatedTasksInput;
@@ -577,7 +580,7 @@ export type TaskUncheckedCreateWithoutAssigneeInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     creatorId: number;
     columnId: number;
     createdAt?: Date | string;
@@ -613,7 +616,7 @@ export type TaskScalarWhereInput = {
     description?: Prisma.StringNullableFilter<"Task"> | string | null;
     isCompleted?: Prisma.BoolFilter<"Task"> | boolean;
     position?: Prisma.IntFilter<"Task"> | number;
-    deadline?: Prisma.DateTimeFilter<"Task"> | Date | string;
+    deadline?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null;
     creatorId?: Prisma.IntFilter<"Task"> | number;
     assigneeId?: Prisma.IntNullableFilter<"Task"> | number | null;
     columnId?: Prisma.IntFilter<"Task"> | number;
@@ -638,7 +641,7 @@ export type TaskCreateWithoutColumnInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     createdAt?: Date | string;
     updatedAt?: Date | string;
     creator: Prisma.UserCreateNestedOneWithoutCreatedTasksInput;
@@ -650,7 +653,7 @@ export type TaskUncheckedCreateWithoutColumnInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     creatorId: number;
     assigneeId?: number | null;
     createdAt?: Date | string;
@@ -683,7 +686,7 @@ export type TaskCreateManyCreatorInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     assigneeId?: number | null;
     columnId: number;
     createdAt?: Date | string;
@@ -695,7 +698,7 @@ export type TaskCreateManyAssigneeInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     creatorId: number;
     columnId: number;
     createdAt?: Date | string;
@@ -706,7 +709,7 @@ export type TaskUpdateWithoutCreatorInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     assignee?: Prisma.UserUpdateOneWithoutAssigneeTasksNestedInput;
@@ -718,7 +721,7 @@ export type TaskUncheckedUpdateWithoutCreatorInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     assigneeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     columnId?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -730,7 +733,7 @@ export type TaskUncheckedUpdateManyWithoutCreatorInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     assigneeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     columnId?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -741,7 +744,7 @@ export type TaskUpdateWithoutAssigneeInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     creator?: Prisma.UserUpdateOneRequiredWithoutCreatedTasksNestedInput;
@@ -753,7 +756,7 @@ export type TaskUncheckedUpdateWithoutAssigneeInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     creatorId?: Prisma.IntFieldUpdateOperationsInput | number;
     columnId?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -765,7 +768,7 @@ export type TaskUncheckedUpdateManyWithoutAssigneeInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     creatorId?: Prisma.IntFieldUpdateOperationsInput | number;
     columnId?: Prisma.IntFieldUpdateOperationsInput | number;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -777,7 +780,7 @@ export type TaskCreateManyColumnInput = {
     description?: string | null;
     isCompleted?: boolean;
     position?: number;
-    deadline: Date | string;
+    deadline?: Date | string | null;
     creatorId: number;
     assigneeId?: number | null;
     createdAt?: Date | string;
@@ -788,7 +791,7 @@ export type TaskUpdateWithoutColumnInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
     creator?: Prisma.UserUpdateOneRequiredWithoutCreatedTasksNestedInput;
@@ -800,7 +803,7 @@ export type TaskUncheckedUpdateWithoutColumnInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     creatorId?: Prisma.IntFieldUpdateOperationsInput | number;
     assigneeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -812,7 +815,7 @@ export type TaskUncheckedUpdateManyWithoutColumnInput = {
     description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
     isCompleted?: Prisma.BoolFieldUpdateOperationsInput | boolean;
     position?: Prisma.IntFieldUpdateOperationsInput | number;
-    deadline?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    deadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null;
     creatorId?: Prisma.IntFieldUpdateOperationsInput | number;
     assigneeId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null;
     createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -866,7 +869,7 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         description: string | null;
         isCompleted: boolean;
         position: number;
-        deadline: Date;
+        deadline: Date | null;
         creatorId: number;
         assigneeId: number | null;
         columnId: number;
