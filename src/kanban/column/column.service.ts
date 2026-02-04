@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateColumnDto } from './dto/create-column.dto';
 
@@ -66,5 +66,20 @@ export class ColumnService {
     return {
       columns: updated.sort((a, b) => a.position - b.position),
     };
+  }
+
+  async remove(id: number) {
+    const column = await this.prisma.column.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    if (!column) throw new NotFoundException(`Колонка с id ${id} не найдена`);
+    return await this.prisma.column.delete({
+      where: {
+        id,
+      },
+    });
   }
 }

@@ -1,4 +1,14 @@
-import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { ColumnService } from './column.service';
 import { Authorizated, Protected } from 'src/auth/decorators';
 import { CreateColumnDto } from './dto/create-column.dto';
@@ -17,8 +27,14 @@ export class ColumnController {
     return column;
   }
 
+  @HttpCode(HttpStatus.OK)
   @Post('columns/:id/move')
   move(@Param('id') id: string, @Body('toPosition') toPosition: number) {
     return this.columnService.move(+id, toPosition);
+  }
+
+  @Delete('/columns/:id')
+  remove(@Param('id') id: string) {
+    return this.columnService.remove(+id);
   }
 }
