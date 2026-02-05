@@ -78,6 +78,16 @@ export class TaskService {
     };
   }
 
+  async remove(id: number) {
+    await this.findOne(id);
+
+    return await this.prisma.task.delete({
+      where: {
+        id,
+      },
+    });
+  }
+
   async findOne(id: number) {
     const task = await this.prisma.task.findUnique({
       where: {

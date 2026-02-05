@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Authorizated, Protected } from 'src/auth/decorators';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -28,5 +28,10 @@ export class TaskController {
   @Patch('/tasks/:id/move')
   move(@Param('id') id: string, @Body('toPosition') toPosition: number) {
     return this.taskService.move(+id, toPosition);
+  }
+
+  @Delete('/tasks/:id')
+  remove(@Param('id') id: string) {
+    return this.taskService.remove(+id);
   }
 }
