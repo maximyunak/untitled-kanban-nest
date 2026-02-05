@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
@@ -40,5 +40,45 @@ export class TaskService {
     });
 
     return updated;
+  }
+
+  async move(id: number, toPosition: number) {
+    const task = await this.prisma.task.findUnique({
+      where: { id },
+    });
+
+    if (!task) throw new NotFoundException('Таска не найдена');
+
+    const tasks = await this.prisma.task.findMany({
+      where: {
+        columnId: task.columnId,
+      },
+      orderBy: {
+        position: 'asc',
+      },
+    });
+
+    const oldIndex = tasks.findIndex((el) => el.id === task.id);
+
+    const [moved] = tasks.splice(oldIndex, 1);
+
+    tasks.splice(toPosition, 0, moved);
+
+    const updated = await this.prisma.$transaction(
+      tasks.map((el, idx) =>
+        this.prisma.task.update({
+          where: {
+            id: el.id,
+          },
+          data: {
+            position: idx,
+          },
+        }),
+      ),
+    );
+
+    return {
+      tasks: updated.sort((a, b) => a.position - b.position),
+    };
   }
 }

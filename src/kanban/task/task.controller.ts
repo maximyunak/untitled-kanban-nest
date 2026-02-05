@@ -7,11 +7,11 @@ import { BoardProtected } from '../board/decorators/board-protected.decorator';
 
 @BoardProtected()
 @Protected()
-@Controller()
+@Controller('/boards/:boardId')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
-  @Post('/boards/:boardId/columns/:columnId/tasks')
+  @Post('/columns/:columnId/tasks')
   create(
     @Param('columnId') columnId: string,
     @Body() dto: CreateTaskDto,
@@ -20,8 +20,13 @@ export class TaskController {
     return this.taskService.create(+columnId, dto, creatorId);
   }
 
-  @Patch('/boards/:boardId/tasks/:id')
+  @Patch('/tasks/:id')
   update(@Param('id') id: string, @Body() dto: UpdateTaskDto) {
     return this.taskService.update(+id, dto);
+  }
+
+  @Patch('/tasks/:id/move')
+  move(@Param('id') id: string, @Body('toPosition') toPosition: number) {
+    return this.taskService.move(+id, toPosition);
   }
 }
