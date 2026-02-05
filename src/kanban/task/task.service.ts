@@ -43,11 +43,7 @@ export class TaskService {
   }
 
   async move(id: number, toPosition: number) {
-    const task = await this.prisma.task.findUnique({
-      where: { id },
-    });
-
-    if (!task) throw new NotFoundException('Таска не найдена');
+    const task = await this.findOne(id);
 
     const tasks = await this.prisma.task.findMany({
       where: {
@@ -80,5 +76,16 @@ export class TaskService {
     return {
       tasks: updated.sort((a, b) => a.position - b.position),
     };
+  }
+
+  async findOne(id: number) {
+    const task = await this.prisma.task.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!task) throw new NotFoundException('Таска не найдена');
+
+    return task;
   }
 }

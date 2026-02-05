@@ -30,11 +30,7 @@ export class ColumnService {
   }
 
   async move(id: number, toPosition: number) {
-    const column = await this.prisma.column.findUnique({
-      where: {
-        id,
-      },
-    });
+    const column = await this.findOne(id);
 
     const columns = await this.prisma.column.findMany({
       where: {
@@ -45,7 +41,7 @@ export class ColumnService {
       },
     });
 
-    const oldIndex = columns.findIndex((el) => el.id === column?.id);
+    const oldIndex = columns.findIndex((el) => el.id === column.id);
 
     const [moved] = columns.splice(oldIndex, 1);
 
@@ -69,13 +65,8 @@ export class ColumnService {
   }
 
   async remove(id: number) {
-    const column = await this.prisma.column.findUnique({
-      where: {
-        id,
-      },
-    });
+    await this.findOne(id);
 
-    if (!column) throw new NotFoundException(`Колонка с id ${id} не найдена`);
     return await this.prisma.column.delete({
       where: {
         id,
@@ -84,10 +75,15 @@ export class ColumnService {
   }
 
   async findOne(columnId: number) {
-    return await this.prisma.column.findUnique({
+    const column = await this.prisma.column.findUnique({
       where: {
         id: columnId,
       },
     });
+
+    if (!column)
+      throw new NotFoundException(`Колонка с id ${columnId} не найдена`);
+
+    return column;
   }
 }
