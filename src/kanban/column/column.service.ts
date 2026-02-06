@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateColumnDto } from './dto/create-column.dto';
+import { UpdateColumnDto } from './dto/update-column.dto';
 
 @Injectable()
 export class ColumnService {
@@ -67,11 +68,25 @@ export class ColumnService {
   async remove(id: number) {
     await this.findOne(id);
 
-    return await this.prisma.column.delete({
+    const column = await this.prisma.column.delete({
       where: {
         id,
       },
     });
+    return {
+      column,
+    };
+  }
+
+  async update(id: number, dto: UpdateColumnDto) {
+    await this.findOne(id);
+    const updated = await this.prisma.column.update({
+      where: {
+        id,
+      },
+      data: dto,
+    });
+    return { column: updated };
   }
 
   async findOne(columnId: number) {

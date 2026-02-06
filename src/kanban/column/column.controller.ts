@@ -5,20 +5,22 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { ColumnService } from './column.service';
 import { Protected } from 'src/auth/decorators';
 import { CreateColumnDto } from './dto/create-column.dto';
 import { BoardProtected } from '../board/decorators/board-protected.decorator';
+import { UpdateColumnDto } from './dto/update-column.dto';
 
 @BoardProtected()
 @Protected()
-@Controller()
+@Controller('/boards/:boardId')
 export class ColumnController {
   constructor(private readonly columnService: ColumnService) {}
 
-  @Post('/boards/:boardId/columns')
+  @Post('/columns')
   create(@Param('boardId') boardId: string, @Body() dto: CreateColumnDto) {
     const column = this.columnService.create(+boardId, dto);
 
@@ -26,7 +28,7 @@ export class ColumnController {
   }
 
   @HttpCode(HttpStatus.OK)
-  @Post('columns/:id/move')
+  @Patch('columns/:id/move')
   move(@Param('id') id: string, @Body('toPosition') toPosition: number) {
     return this.columnService.move(+id, toPosition);
   }
@@ -34,5 +36,10 @@ export class ColumnController {
   @Delete('/columns/:id')
   remove(@Param('id') id: string) {
     return this.columnService.remove(+id);
+  }
+
+  @Patch('/columns/:id')
+  update(@Param('id') id: string, @Body() dto: UpdateColumnDto) {
+    return this.columnService.update(+id, dto);
   }
 }

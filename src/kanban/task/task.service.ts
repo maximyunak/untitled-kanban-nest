@@ -28,10 +28,11 @@ export class TaskService {
       },
     });
 
-    return task;
+    return { task };
   }
 
   async update(id: number, dto: UpdateTaskDto) {
+    await this.findOne(id);
     const updated = await this.prisma.task.update({
       where: {
         id,
@@ -39,7 +40,7 @@ export class TaskService {
       data: dto,
     });
 
-    return updated;
+    return { task: updated };
   }
 
   async move(id: number, toPosition: number) {
@@ -81,11 +82,14 @@ export class TaskService {
   async remove(id: number) {
     await this.findOne(id);
 
-    return await this.prisma.task.delete({
+    const column = await this.prisma.task.delete({
       where: {
         id,
       },
     });
+    return {
+      column,
+    };
   }
 
   async findOne(id: number) {
