@@ -36,11 +36,13 @@ export class TokenService {
     });
 
     const refreshTokenExpires = new Date(Date.now() + ms(this.JWT_REFRESH_TTL));
+    const accessTokenExpires = new Date(Date.now() + ms(this.JWT_ACCESS_TTL));
 
     return {
       refreshToken,
       accessToken,
       refreshTokenExpires,
+      accessTokenExpires,
     };
   }
 
@@ -60,6 +62,8 @@ export class TokenService {
       },
     );
 
-    return { accessToken };
+    const accessTokenExpires = new Date(Date.now() + ms(this.JWT_ACCESS_TTL));
+
+    return { accessToken, accessTokenExpires };
   }
 }

@@ -21,6 +21,7 @@ import { BoardResponse } from './dto/boards.dto';
 import { CreateBoardResponse } from './dto/create-board-response.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { BoardOwnerGuard } from './guards/board-owner.guard';
+import { BoardProtected } from './decorators/board-protected.decorator';
 
 @Protected()
 @Controller('boards')
@@ -63,5 +64,11 @@ export class BoardController {
   @Delete('/:id')
   deleteBoard(@Param('id') boardId: string) {
     return this.boardService.remove(+boardId);
+  }
+
+  @BoardProtected()
+  @Get('/:boardId')
+  getBoard(@Param('boardId') boardId: string) {
+    return this.boardService.findOne(+boardId);
   }
 }

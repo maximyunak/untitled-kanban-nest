@@ -61,10 +61,19 @@ export class BoardService {
       where: {
         id,
       },
+      include: {
+        columns: {
+          include: {
+            tasks: true,
+          },
+        },
+      },
     });
     if (!board) throw new NotFoundException(`Board with id ${id} not found`);
 
-    return board;
+    return {
+      board,
+    };
   }
 
   async hasAccess(userId: number, boardId: number) {

@@ -97,7 +97,14 @@ export class AuthController {
     description: 'Не удалось получить куки авторизации',
   })
   @Get('/refresh')
-  refresh(@Req() req: Request) {
-    return this.authService.refresh(req);
+  refresh(
+    @Res({
+      passthrough: true,
+    })
+    res: Response,
+    @Req()
+    req: Request,
+  ) {
+    return this.authService.refresh(res, req);
   }
 }

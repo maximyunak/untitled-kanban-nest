@@ -6,8 +6,8 @@ export class BoardOwnerGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
 
-    const board = await this.boardService.findOne(+req.params.id);
+    const data = await this.boardService.findOne(+req.params.id);
 
-    return board.creatorId === req.user.id;
+    return data.board.creatorId === req.user.id;
   }
 }

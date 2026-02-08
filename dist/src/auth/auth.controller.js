@@ -33,8 +33,8 @@ let AuthController = class AuthController {
     logout(res) {
         return this.authService.logout(res);
     }
-    refresh(req) {
-        return this.authService.refresh(req);
+    refresh(res, req) {
+        return this.authService.refresh(res, req);
     }
 };
 exports.AuthController = AuthController;
@@ -112,9 +112,12 @@ __decorate([
         description: 'Не удалось получить куки авторизации',
     }),
     (0, common_1.Get)('/refresh'),
-    __param(0, (0, common_1.Req)()),
+    __param(0, (0, common_1.Res)({
+        passthrough: true,
+    })),
+    __param(1, (0, common_1.Req)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "refresh", null);
 exports.AuthController = AuthController = __decorate([

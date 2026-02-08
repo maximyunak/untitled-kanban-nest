@@ -96,7 +96,7 @@ let AuthService = class AuthService {
         };
         return this.auth(res, payload);
     }
-    async refresh(req) {
+    async refresh(res, req) {
         if (!req || !req.cookies) {
             throw new common_1.UnauthorizedException('Не удалось получить куки авторизации');
         }
@@ -104,19 +104,30 @@ let AuthService = class AuthService {
         if (!refreshToken) {
             throw new common_1.UnauthorizedException('Refresh токен не найден');
         }
-        const accessToken = this.tokenService.refreshAccess(refreshToken);
+        const { accessToken, accessTokenExpires } = await this.tokenService.refreshAccess(refreshToken);
+        this.setCookies(res, 'accessToken', accessToken, accessTokenExpires);
         return accessToken;
     }
     logout(res) {
         this.setCookie(res, '', new Date(0));
     }
     async auth(res, payload) {
-        const { refreshToken, accessToken, refreshTokenExpires } = await this.tokenService.generateTokens(payload);
-        this.setCookie(res, refreshToken, refreshTokenExpires);
+        const { refreshToken, accessToken, refreshTokenExpires, accessTokenExpires, } = await this.tokenService.generateTokens(payload);
+        this.setCookies(res, 'accessToken', accessToken, accessTokenExpires);
+        this.setCookies(res, 'refreshToken', refreshToken, refreshTokenExpires);
         return { accessToken };
     }
     setCookie(res, value, expires) {
         res.cookie('refreshToken', value, {
+            expires,
+            httpOnly: true,
+            sameSite: 'lax',
+            domain: this.config.getOrThrow('COOKIES_DOMAIN'),
+            secure: false,
+        });
+    }
+    setCookies(res, key, value, expires) {
+        res.cookie(key, value, {
             expires,
             httpOnly: true,
             sameSite: 'lax',
