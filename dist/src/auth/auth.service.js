@@ -109,22 +109,14 @@ let AuthService = class AuthService {
         return accessToken;
     }
     logout(res) {
-        this.setCookie(res, '', new Date(0));
+        this.setCookies(res, 'accessToken', '', new Date(0));
+        this.setCookies(res, 'refreshToken', '', new Date(0));
     }
     async auth(res, payload) {
         const { refreshToken, accessToken, refreshTokenExpires, accessTokenExpires, } = await this.tokenService.generateTokens(payload);
         this.setCookies(res, 'accessToken', accessToken, accessTokenExpires);
         this.setCookies(res, 'refreshToken', refreshToken, refreshTokenExpires);
         return { accessToken };
-    }
-    setCookie(res, value, expires) {
-        res.cookie('refreshToken', value, {
-            expires,
-            httpOnly: true,
-            sameSite: 'lax',
-            domain: this.config.getOrThrow('COOKIES_DOMAIN'),
-            secure: false,
-        });
     }
     setCookies(res, key, value, expires) {
         res.cookie(key, value, {

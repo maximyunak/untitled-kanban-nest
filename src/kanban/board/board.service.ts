@@ -76,6 +76,13 @@ export class BoardService {
     };
   }
 
+  /**
+   * Проверяет есть ли у пользователя доступ к доске
+   *
+   * @param userId - id пользователя
+   * @param boardId - id доски
+   * @returns boolean
+   */
   async hasAccess(userId: number, boardId: number) {
     const relation = await this.prisma.userBoards.findUnique({
       where: {

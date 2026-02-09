@@ -20,6 +20,5 @@ export declare class AuthService {
     refresh(res: Response, req: Request): Promise<string>;
     logout(res: Response): void;
     private auth;
-    private setCookie;
     private setCookies;
 }

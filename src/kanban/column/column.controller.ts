@@ -13,17 +13,24 @@ import { Protected } from 'src/auth/decorators';
 import { CreateColumnDto } from './dto/create-column.dto';
 import { BoardProtected } from '../board/decorators/board-protected.decorator';
 import { UpdateColumnDto } from './dto/update-column.dto';
+import { KanbanGateway } from '../kanban.gateway';
 
 @BoardProtected()
 @Protected()
 @Controller('/boards/:boardId')
 export class ColumnController {
-  constructor(private readonly columnService: ColumnService) {}
+  constructor(
+    private readonly columnService: ColumnService,
+    private gateway: KanbanGateway,
+  ) {}
 
   @Post('/columns')
-  create(@Param('boardId') boardId: string, @Body() dto: CreateColumnDto) {
-    const column = this.columnService.create(+boardId, dto);
-
+  async create(
+    @Param('boardId') boardId: string,
+    @Body() dto: CreateColumnDto,
+  ) {
+    const column = await this.columnService.create(+boardId, dto);
+    this.gateway.handleCreateColumn(column);
     return column;
   }
 

@@ -86,7 +86,8 @@ export class AuthService {
   }
 
   logout(res: Response) {
-    this.setCookie(res, '', new Date(0));
+    this.setCookies(res, 'accessToken', '', new Date(0));
+    this.setCookies(res, 'refreshToken', '', new Date(0));
   }
 
   private async auth(res: Response, payload: TokenPayload) {
@@ -97,22 +98,12 @@ export class AuthService {
       accessTokenExpires,
     } = await this.tokenService.generateTokens(payload);
 
-    // this.setCookie(res, refreshToken, refreshTokenExpires);
     this.setCookies(res, 'accessToken', accessToken, accessTokenExpires);
     this.setCookies(res, 'refreshToken', refreshToken, refreshTokenExpires);
 
     return { accessToken };
   }
 
-  private setCookie(res: Response, value: string, expires: Date) {
-    res.cookie('refreshToken', value, {
-      expires,
-      httpOnly: true,
-      sameSite: 'lax',
-      domain: this.config.getOrThrow('COOKIES_DOMAIN'),
-      secure: false,
-    });
-  }
   private setCookies(res: Response, key: string, value: string, expires: Date) {
     res.cookie(key, value, {
       expires,

@@ -66,4 +66,12 @@ export class TokenService {
 
     return { accessToken, accessTokenExpires };
   }
+
+  async verifyAccess(token: string) {
+    const payload: TokenPayload = await this.jwtService.verifyAsync(token, {
+      secret: this.ACCESS_SECRET,
+    });
+
+    return payload;
+  }
 }
