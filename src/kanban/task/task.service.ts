@@ -82,13 +82,13 @@ export class TaskService {
   async remove(id: number) {
     await this.findOne(id);
 
-    const column = await this.prisma.task.delete({
+    const task = await this.prisma.task.delete({
       where: {
         id,
       },
     });
     return {
-      column,
+      task,
     };
   }
 

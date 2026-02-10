@@ -5,7 +5,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
-import { Column } from 'generated/prisma/client';
+import { Column, Task } from 'generated/prisma/client';
 import { Server, Socket } from 'socket.io';
 import { WsProtected } from 'src/auth/decorators/ws-protected.decorator';
 import type { AuthenticatedSocket } from './types/AuthenticatedSocket.type';
@@ -46,7 +46,7 @@ export class KanbanGateway implements OnGatewayConnection, OnGatewayDisconnect {
     };
   }
 
-  /** колонки **/
+  //* колонки *//
 
   /**
    * Отправляет событие "column:create" всем участникам доски.
@@ -89,5 +89,46 @@ export class KanbanGateway implements OnGatewayConnection, OnGatewayDisconnect {
    */
   handleMoveColumn(boardId: number, payload: { columns: Column[] }) {
     this.server.to(`board-${boardId}`).emit('column:move', payload.columns);
+  }
+
+  //* таски **/
+
+  /**
+   * Отправляет событие "task:create" всем участникам доски.
+   * @param payload - объект с таской
+   * @param payload.task - таска, которая была создана
+   */
+  handleCreateTask(boardId: number, payload: { task: Task }) {
+    console.log(boardId);
+
+    this.server.to(`board-${boardId}`).emit('task:create', payload.task);
+  }
+
+  /**
+   * Отправляет событие "task:update" всем участникам доски.
+   * @param payload - объект с таской
+   * @param payload.task - таска, которая была обновлена
+   */
+  handleUpdateTask(boardId: number, payload: { task: Task }) {
+    this.server.to(`board-${boardId}`).emit('task:update', payload.task);
+  }
+
+  /**
+   * Отправляет событие "task:delete" всем участникам доски.
+   * @param payload - объект с таской
+   * @param payload.task - таска, которая была удалена
+   */
+  handleDeleteTask(boardId: number, payload: { task: Task }) {
+    this.server.to(`board-${boardId}`).emit('task:delete', payload.task);
+  }
+
+  /**
+   * Отправляет событие "task:move" всем участникам доски.
+   * @param boardId - ID доски, для которой перемещают таски
+   * @param payload - объект с массивом тасок в новом порядке
+   * @param payload.tasks - массив тасок после перемещения
+   */
+  handleMoveTask(boardId: number, payload: { tasks: Task[] }) {
+    this.server.to(`board-${boardId}`).emit('task:move', payload.tasks);
   }
 }
