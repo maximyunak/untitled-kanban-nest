@@ -57,6 +57,9 @@ export class ColumnService {
           data: {
             position: idx,
           },
+          include: {
+            tasks: true,
+          },
         }),
       ),
     );

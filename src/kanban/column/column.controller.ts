@@ -36,17 +36,27 @@ export class ColumnController {
 
   @HttpCode(HttpStatus.OK)
   @Patch('columns/:id/move')
-  move(@Param('id') id: string, @Body('toPosition') toPosition: number) {
-    return this.columnService.move(+id, toPosition);
+  async move(
+    @Param('boardId') boardId: string,
+    @Param('id') id: string,
+    @Body('toPosition') toPosition: number,
+  ) {
+    const columns = await this.columnService.move(+id, toPosition);
+    this.gateway.handleMoveColumn(+boardId, columns);
+    return columns;
   }
 
   @Delete('/columns/:id')
-  remove(@Param('id') id: string) {
-    return this.columnService.remove(+id);
+  async remove(@Param('id') id: string) {
+    const column = await this.columnService.remove(+id);
+    this.gateway.handleDeleteColumn(column);
+    return column;
   }
 
   @Patch('/columns/:id')
-  update(@Param('id') id: string, @Body() dto: UpdateColumnDto) {
-    return this.columnService.update(+id, dto);
+  async update(@Param('id') id: string, @Body() dto: UpdateColumnDto) {
+    const column = await this.columnService.update(+id, dto);
+    this.gateway.handleUpdateColumn(column);
+    return column;
   }
 }

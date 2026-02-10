@@ -56,4 +56,20 @@ export class KanbanGateway implements OnGatewayConnection, OnGatewayDisconnect {
       .to(`board-${payload.column.boardId}`)
       .emit('column:create', payload.column);
   }
+
+  handleDeleteColumn(payload: { column: Column }) {
+    this.server
+      .to(`board-${payload.column.boardId}`)
+      .emit('column:delete', payload.column);
+  }
+
+  handleUpdateColumn(payload: { column: Column }) {
+    this.server
+      .to(`board-${payload.column.boardId}`)
+      .emit('column:update', payload.column);
+  }
+
+  handleMoveColumn(boardId: number, payload: { columns: Column[] }) {
+    this.server.to(`board-${boardId}`).emit('column:move', payload.columns);
+  }
 }
