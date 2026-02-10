@@ -99,8 +99,6 @@ export class KanbanGateway implements OnGatewayConnection, OnGatewayDisconnect {
    * @param payload.task - таска, которая была создана
    */
   handleCreateTask(boardId: number, payload: { task: Task }) {
-    console.log(boardId);
-
     this.server.to(`board-${boardId}`).emit('task:create', payload.task);
   }
 

@@ -64,7 +64,14 @@ export class BoardService {
       include: {
         columns: {
           include: {
-            tasks: true,
+            tasks: {
+              orderBy: {
+                position: 'asc',
+              },
+            },
+          },
+          orderBy: {
+            position: 'asc',
           },
         },
       },

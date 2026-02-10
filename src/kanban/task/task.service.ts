@@ -1,13 +1,31 @@
-import { Body, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { Task } from 'generated/prisma/client';
 
 @Injectable()
 export class TaskService {
   constructor(private prisma: PrismaService) {}
 
-  async create(columnId: number, dto: CreateTaskDto, creatorId: number) {
+  async create(
+    boardId: number,
+    columnId: number,
+    dto: CreateTaskDto,
+    creatorId: number,
+  ) {
+    const isColumnExists = await this.prisma.column.findFirst({
+      where: {
+        id: columnId,
+        boardId,
+      },
+    });
+
+    if (!isColumnExists)
+      throw new NotFoundException(
+        `Колонка ${columnId} отсутствует в ${boardId} доске`,
+      );
+
     const lastTask = await this.prisma.task.findFirst({
       where: {
         columnId,
@@ -31,8 +49,9 @@ export class TaskService {
     return { task };
   }
 
-  async update(id: number, dto: UpdateTaskDto) {
-    await this.findOne(id);
+  async update(boardId: number, id: number, dto: UpdateTaskDto) {
+    await this.isTaskInBoard(boardId, id);
+
     const updated = await this.prisma.task.update({
       where: {
         id,
@@ -43,8 +62,8 @@ export class TaskService {
     return { task: updated };
   }
 
-  async move(id: number, toPosition: number) {
-    const task = await this.findOne(id);
+  async move(boardId: number, id: number, toPosition: number) {
+    const task = await this.isTaskInBoard(boardId, id);
 
     const tasks = await this.prisma.task.findMany({
       where: {
@@ -79,8 +98,8 @@ export class TaskService {
     };
   }
 
-  async remove(id: number) {
-    await this.findOne(id);
+  async remove(boardId: number, id: number) {
+    await this.isTaskInBoard(boardId, id);
 
     const task = await this.prisma.task.delete({
       where: {
@@ -92,13 +111,26 @@ export class TaskService {
     };
   }
 
-  async findOne(id: number) {
-    const task = await this.prisma.task.findUnique({
+  /**
+   * Проверяет относится ли таска к доске
+   * @param boardId ID доски в которой должна находиться таска
+   * @param taskId ID таски
+   * @returns task
+   */
+  async isTaskInBoard(boardId: number, taskId: number): Promise<Task> {
+    const task = await this.prisma.task.findFirst({
       where: {
-        id,
+        id: taskId,
+        column: {
+          boardId,
+        },
       },
     });
-    if (!task) throw new NotFoundException('Таска не найдена');
+
+    if (!task)
+      throw new NotFoundException(
+        `Таска с ${taskId} отсутствует в ${boardId} доске`,
+      );
 
     return task;
   }

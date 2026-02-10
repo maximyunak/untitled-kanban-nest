@@ -22,7 +22,12 @@ export class TaskController {
     @Body() dto: CreateTaskDto,
     @Authorizated('id') creatorId: number,
   ) {
-    const task = await this.taskService.create(+columnId, dto, creatorId);
+    const task = await this.taskService.create(
+      +boardId,
+      +columnId,
+      dto,
+      creatorId,
+    );
     this.gateway.handleCreateTask(+boardId, task);
     return task;
   }
@@ -33,7 +38,7 @@ export class TaskController {
     @Param('id') id: string,
     @Body() dto: UpdateTaskDto,
   ) {
-    const task = await this.taskService.update(+id, dto);
+    const task = await this.taskService.update(+boardId, +id, dto);
     this.gateway.handleUpdateTask(+boardId, task);
     return task;
   }
@@ -44,14 +49,14 @@ export class TaskController {
     @Param('id') id: string,
     @Body('toPosition') toPosition: number,
   ) {
-    const task = await this.taskService.move(+id, toPosition);
+    const task = await this.taskService.move(+boardId, +id, toPosition);
     this.gateway.handleMoveTask(+boardId, task);
     return task;
   }
 
   @Delete('/tasks/:id')
   async remove(@Param('boardId') boardId: string, @Param('id') id: string) {
-    const task = await this.taskService.remove(+id);
+    const task = await this.taskService.remove(+boardId, +id);
     this.gateway.handleDeleteTask(+boardId, task);
     return task;
   }
