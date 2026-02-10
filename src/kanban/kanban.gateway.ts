@@ -9,8 +9,6 @@ import { Column } from 'generated/prisma/client';
 import { Server, Socket } from 'socket.io';
 import { WsProtected } from 'src/auth/decorators/ws-protected.decorator';
 import type { AuthenticatedSocket } from './types/AuthenticatedSocket.type';
-import { UseGuards } from '@nestjs/common';
-import { WsBoardAccessGuard } from './board/guards/ws-board-access.guard';
 import { WsBoardProtected } from './board/decorators/ws-board-protected.decorator';
 
 @WebSocketGateway()
@@ -25,10 +23,7 @@ export class KanbanGateway implements OnGatewayConnection, OnGatewayDisconnect {
     console.log('disconnect', client.id);
   }
 
-  @SubscribeMessage('message')
-  handleMessage(client: any, payload: any): string {
-    return 'Hello world!';
-  }
+  // подключение к доске
 
   @WsBoardProtected()
   @WsProtected()
@@ -51,24 +46,47 @@ export class KanbanGateway implements OnGatewayConnection, OnGatewayDisconnect {
     };
   }
 
+  /** колонки **/
+
+  /**
+   * Отправляет событие "column:create" всем участникам доски.
+   * @param payload - объект с колонкой
+   * @param payload.column - колонка, которая была создана
+   */
   handleCreateColumn(payload: { column: Column }) {
     this.server
       .to(`board-${payload.column.boardId}`)
       .emit('column:create', payload.column);
   }
 
+  /**
+   * Отправляет событие "column:delete" всем участникам доски.
+   * @param payload - объект с колонкой
+   * @param payload.column - колонка, которая была удалена
+   */
   handleDeleteColumn(payload: { column: Column }) {
     this.server
       .to(`board-${payload.column.boardId}`)
       .emit('column:delete', payload.column);
   }
 
+  /**
+   * Отправляет событие "column:update" всем участникам доски.
+   * @param payload - объект с колонкой
+   * @param payload.column - колонка, которая была обновлена
+   */
   handleUpdateColumn(payload: { column: Column }) {
     this.server
       .to(`board-${payload.column.boardId}`)
       .emit('column:update', payload.column);
   }
 
+  /**
+   * Отправляет событие "column:move" всем участникам доски.
+   * @param boardId - ID доски, для которой перемещают колонки
+   * @param payload - объект с массивом колонок в новом порядке
+   * @param payload.columns - массив колонок после перемещения
+   */
   handleMoveColumn(boardId: number, payload: { columns: Column[] }) {
     this.server.to(`board-${boardId}`).emit('column:move', payload.columns);
   }
