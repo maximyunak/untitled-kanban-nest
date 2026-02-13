@@ -24,6 +24,7 @@ import { CreateBoardResponse } from './dto/create-board-response.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { BoardOwnerGuard } from './guards/board-owner.guard';
 import { BoardProtected } from './decorators/board-protected.decorator';
+import { CreateInviteDto } from './dto/create-invite.dto';
 
 @Protected()
 @Controller('boards')
@@ -76,11 +77,8 @@ export class BoardController {
 
   @BoardProtected()
   @Post('/:boardId/invite')
-  inviteBoard(
-    @Param('boardId') boardId: string,
-    @Body('userId') userId: string,
-  ) {
-    return this.boardService.inviteBoard(+userId, +boardId);
+  inviteBoard(@Param('boardId') boardId: string, @Body() dto: CreateInviteDto) {
+    return this.boardService.inviteBoard(+dto.userId, +boardId);
   }
 
   @Patch('/:boardId/invite/:inviteId/accept')
