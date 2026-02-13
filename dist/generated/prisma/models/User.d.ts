@@ -144,6 +144,7 @@ export type UserWhereInput = {
     createdTasks?: Prisma.TaskListRelationFilter;
     assigneeTasks?: Prisma.TaskListRelationFilter;
     userBoards?: Prisma.UserBoardsListRelationFilter;
+    invites?: Prisma.InviteBoardsListRelationFilter;
 };
 export type UserOrderByWithRelationInput = {
     id?: Prisma.SortOrder;
@@ -158,6 +159,7 @@ export type UserOrderByWithRelationInput = {
     createdTasks?: Prisma.TaskOrderByRelationAggregateInput;
     assigneeTasks?: Prisma.TaskOrderByRelationAggregateInput;
     userBoards?: Prisma.userBoardsOrderByRelationAggregateInput;
+    invites?: Prisma.inviteBoardsOrderByRelationAggregateInput;
     _relevance?: Prisma.UserOrderByRelevanceInput;
 };
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -176,6 +178,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
     createdTasks?: Prisma.TaskListRelationFilter;
     assigneeTasks?: Prisma.TaskListRelationFilter;
     userBoards?: Prisma.UserBoardsListRelationFilter;
+    invites?: Prisma.InviteBoardsListRelationFilter;
 }, "id" | "email">;
 export type UserOrderByWithAggregationInput = {
     id?: Prisma.SortOrder;
@@ -217,6 +220,7 @@ export type UserCreateInput = {
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateInput = {
     id?: number;
@@ -231,6 +235,7 @@ export type UserUncheckedCreateInput = {
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserUpdateInput = {
     email?: Prisma.StringFieldUpdateOperationsInput | string;
@@ -244,6 +249,7 @@ export type UserUpdateInput = {
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -258,6 +264,7 @@ export type UserUncheckedUpdateInput = {
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateManyInput = {
     id?: number;
@@ -403,6 +410,18 @@ export type UserUpdateOneRequiredWithoutUserBoardsNestedInput = {
     connect?: Prisma.UserWhereUniqueInput;
     update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutUserBoardsInput, Prisma.UserUpdateWithoutUserBoardsInput>, Prisma.UserUncheckedUpdateWithoutUserBoardsInput>;
 };
+export type UserCreateNestedOneWithoutInvitesInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutInvitesInput, Prisma.UserUncheckedCreateWithoutInvitesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutInvitesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+};
+export type UserUpdateOneRequiredWithoutInvitesNestedInput = {
+    create?: Prisma.XOR<Prisma.UserCreateWithoutInvitesInput, Prisma.UserUncheckedCreateWithoutInvitesInput>;
+    connectOrCreate?: Prisma.UserCreateOrConnectWithoutInvitesInput;
+    upsert?: Prisma.UserUpsertWithoutInvitesInput;
+    connect?: Prisma.UserWhereUniqueInput;
+    update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutInvitesInput, Prisma.UserUpdateWithoutInvitesInput>, Prisma.UserUncheckedUpdateWithoutInvitesInput>;
+};
 export type UserCreateWithoutBoardsInput = {
     email: string;
     password: string;
@@ -414,6 +433,7 @@ export type UserCreateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutBoardsInput = {
     id?: number;
@@ -427,6 +447,7 @@ export type UserUncheckedCreateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutBoardsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -452,6 +473,7 @@ export type UserUpdateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutBoardsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -465,6 +487,7 @@ export type UserUncheckedUpdateWithoutBoardsInput = {
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutCreatedTasksInput = {
     email: string;
@@ -477,6 +500,7 @@ export type UserCreateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutCreatedTasksInput = {
     id?: number;
@@ -490,6 +514,7 @@ export type UserUncheckedCreateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutCreatedTasksInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -506,6 +531,7 @@ export type UserCreateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutAssigneeTasksInput = {
     id?: number;
@@ -519,6 +545,7 @@ export type UserUncheckedCreateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
+    invites?: Prisma.inviteBoardsUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutAssigneeTasksInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -544,6 +571,7 @@ export type UserUpdateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutCreatedTasksInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -557,6 +585,7 @@ export type UserUncheckedUpdateWithoutCreatedTasksInput = {
     boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserUpsertWithoutAssigneeTasksInput = {
     update: Prisma.XOR<Prisma.UserUpdateWithoutAssigneeTasksInput, Prisma.UserUncheckedUpdateWithoutAssigneeTasksInput>;
@@ -578,6 +607,7 @@ export type UserUpdateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutAssigneeTasksInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -591,6 +621,7 @@ export type UserUncheckedUpdateWithoutAssigneeTasksInput = {
     boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
+    invites?: Prisma.inviteBoardsUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCreateWithoutUserBoardsInput = {
     email: string;
@@ -603,6 +634,7 @@ export type UserCreateWithoutUserBoardsInput = {
     boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
+    invites?: Prisma.inviteBoardsCreateNestedManyWithoutUserInput;
 };
 export type UserUncheckedCreateWithoutUserBoardsInput = {
     id?: number;
@@ -616,6 +648,7 @@ export type UserUncheckedCreateWithoutUserBoardsInput = {
     boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
     createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
     assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
+    invites?: Prisma.inviteBoardsUncheckedCreateNestedManyWithoutUserInput;
 };
 export type UserCreateOrConnectWithoutUserBoardsInput = {
     where: Prisma.UserWhereUniqueInput;
@@ -641,6 +674,7 @@ export type UserUpdateWithoutUserBoardsInput = {
     boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
+    invites?: Prisma.inviteBoardsUpdateManyWithoutUserNestedInput;
 };
 export type UserUncheckedUpdateWithoutUserBoardsInput = {
     id?: Prisma.IntFieldUpdateOperationsInput | number;
@@ -654,18 +688,88 @@ export type UserUncheckedUpdateWithoutUserBoardsInput = {
     boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
     createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
     assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
+    invites?: Prisma.inviteBoardsUncheckedUpdateManyWithoutUserNestedInput;
+};
+export type UserCreateWithoutInvitesInput = {
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    patronymic?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    boards?: Prisma.BoardCreateNestedManyWithoutCreatorInput;
+    createdTasks?: Prisma.TaskCreateNestedManyWithoutCreatorInput;
+    assigneeTasks?: Prisma.TaskCreateNestedManyWithoutAssigneeInput;
+    userBoards?: Prisma.userBoardsCreateNestedManyWithoutUserInput;
+};
+export type UserUncheckedCreateWithoutInvitesInput = {
+    id?: number;
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    patronymic?: string | null;
+    createdAt?: Date | string;
+    updatedAt?: Date | string;
+    boards?: Prisma.BoardUncheckedCreateNestedManyWithoutCreatorInput;
+    createdTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutCreatorInput;
+    assigneeTasks?: Prisma.TaskUncheckedCreateNestedManyWithoutAssigneeInput;
+    userBoards?: Prisma.userBoardsUncheckedCreateNestedManyWithoutUserInput;
+};
+export type UserCreateOrConnectWithoutInvitesInput = {
+    where: Prisma.UserWhereUniqueInput;
+    create: Prisma.XOR<Prisma.UserCreateWithoutInvitesInput, Prisma.UserUncheckedCreateWithoutInvitesInput>;
+};
+export type UserUpsertWithoutInvitesInput = {
+    update: Prisma.XOR<Prisma.UserUpdateWithoutInvitesInput, Prisma.UserUncheckedUpdateWithoutInvitesInput>;
+    create: Prisma.XOR<Prisma.UserCreateWithoutInvitesInput, Prisma.UserUncheckedCreateWithoutInvitesInput>;
+    where?: Prisma.UserWhereInput;
+};
+export type UserUpdateToOneWithWhereWithoutInvitesInput = {
+    where?: Prisma.UserWhereInput;
+    data: Prisma.XOR<Prisma.UserUpdateWithoutInvitesInput, Prisma.UserUncheckedUpdateWithoutInvitesInput>;
+};
+export type UserUpdateWithoutInvitesInput = {
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+    lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+    patronymic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    boards?: Prisma.BoardUpdateManyWithoutCreatorNestedInput;
+    createdTasks?: Prisma.TaskUpdateManyWithoutCreatorNestedInput;
+    assigneeTasks?: Prisma.TaskUpdateManyWithoutAssigneeNestedInput;
+    userBoards?: Prisma.userBoardsUpdateManyWithoutUserNestedInput;
+};
+export type UserUncheckedUpdateWithoutInvitesInput = {
+    id?: Prisma.IntFieldUpdateOperationsInput | number;
+    email?: Prisma.StringFieldUpdateOperationsInput | string;
+    password?: Prisma.StringFieldUpdateOperationsInput | string;
+    firstName?: Prisma.StringFieldUpdateOperationsInput | string;
+    lastName?: Prisma.StringFieldUpdateOperationsInput | string;
+    patronymic?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
+    boards?: Prisma.BoardUncheckedUpdateManyWithoutCreatorNestedInput;
+    createdTasks?: Prisma.TaskUncheckedUpdateManyWithoutCreatorNestedInput;
+    assigneeTasks?: Prisma.TaskUncheckedUpdateManyWithoutAssigneeNestedInput;
+    userBoards?: Prisma.userBoardsUncheckedUpdateManyWithoutUserNestedInput;
 };
 export type UserCountOutputType = {
     boards: number;
     createdTasks: number;
     assigneeTasks: number;
     userBoards: number;
+    invites: number;
 };
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     boards?: boolean | UserCountOutputTypeCountBoardsArgs;
     createdTasks?: boolean | UserCountOutputTypeCountCreatedTasksArgs;
     assigneeTasks?: boolean | UserCountOutputTypeCountAssigneeTasksArgs;
     userBoards?: boolean | UserCountOutputTypeCountUserBoardsArgs;
+    invites?: boolean | UserCountOutputTypeCountInvitesArgs;
 };
 export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null;
@@ -682,6 +786,9 @@ export type UserCountOutputTypeCountAssigneeTasksArgs<ExtArgs extends runtime.Ty
 export type UserCountOutputTypeCountUserBoardsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     where?: Prisma.userBoardsWhereInput;
 };
+export type UserCountOutputTypeCountInvitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    where?: Prisma.inviteBoardsWhereInput;
+};
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
     id?: boolean;
     email?: boolean;
@@ -695,6 +802,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
     createdTasks?: boolean | Prisma.User$createdTasksArgs<ExtArgs>;
     assigneeTasks?: boolean | Prisma.User$assigneeTasksArgs<ExtArgs>;
     userBoards?: boolean | Prisma.User$userBoardsArgs<ExtArgs>;
+    invites?: boolean | Prisma.User$invitesArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 }, ExtArgs["result"]["user"]>;
 export type UserSelectScalar = {
@@ -713,6 +821,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     createdTasks?: boolean | Prisma.User$createdTasksArgs<ExtArgs>;
     assigneeTasks?: boolean | Prisma.User$assigneeTasksArgs<ExtArgs>;
     userBoards?: boolean | Prisma.User$userBoardsArgs<ExtArgs>;
+    invites?: boolean | Prisma.User$invitesArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -722,6 +831,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
         createdTasks: Prisma.$TaskPayload<ExtArgs>[];
         assigneeTasks: Prisma.$TaskPayload<ExtArgs>[];
         userBoards: Prisma.$userBoardsPayload<ExtArgs>[];
+        invites: Prisma.$inviteBoardsPayload<ExtArgs>[];
     };
     scalars: runtime.Types.Extensions.GetPayloadResult<{
         id: number;
@@ -786,6 +896,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
     createdTasks<T extends Prisma.User$createdTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     assigneeTasks<T extends Prisma.User$assigneeTasksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assigneeTasksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TaskPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     userBoards<T extends Prisma.User$userBoardsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$userBoardsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$userBoardsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
+    invites<T extends Prisma.User$invitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$invitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$inviteBoardsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>;
     then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): runtime.Types.Utils.JsPromise<TResult1 | TResult2>;
     catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): runtime.Types.Utils.JsPromise<T | TResult>;
     finally(onfinally?: (() => void) | undefined | null): runtime.Types.Utils.JsPromise<T>;
@@ -928,6 +1039,17 @@ export type User$userBoardsArgs<ExtArgs extends runtime.Types.Extensions.Interna
     take?: number;
     skip?: number;
     distinct?: Prisma.UserBoardsScalarFieldEnum | Prisma.UserBoardsScalarFieldEnum[];
+};
+export type User$invitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+    select?: Prisma.inviteBoardsSelect<ExtArgs> | null;
+    omit?: Prisma.inviteBoardsOmit<ExtArgs> | null;
+    include?: Prisma.inviteBoardsInclude<ExtArgs> | null;
+    where?: Prisma.inviteBoardsWhereInput;
+    orderBy?: Prisma.inviteBoardsOrderByWithRelationInput | Prisma.inviteBoardsOrderByWithRelationInput[];
+    cursor?: Prisma.inviteBoardsWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?: Prisma.InviteBoardsScalarFieldEnum | Prisma.InviteBoardsScalarFieldEnum[];
 };
 export type UserDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
     select?: Prisma.UserSelect<ExtArgs> | null;

@@ -3,4 +3,5 @@ export type * from './models/Board.js';
 export type * from './models/Column.js';
 export type * from './models/Task.js';
 export type * from './models/userBoards.js';
+export type * from './models/inviteBoards.js';
 export type * from './commonInputTypes.js';

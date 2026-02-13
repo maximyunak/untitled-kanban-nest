@@ -23,12 +23,13 @@ model User {
   lastName   String  @map("last_name")
   patronymic String?
 
-  createdAt     DateTime     @default(now()) @map("created_at")
-  updatedAt     DateTime     @updatedAt @map("updated_at")
+  createdAt     DateTime       @default(now()) @map("created_at")
+  updatedAt     DateTime       @updatedAt @map("updated_at")
   boards        Board[]
-  createdTasks  Task[]       @relation("createdTasks")
-  assigneeTasks Task[]       @relation("assigneeTasks")
+  createdTasks  Task[]         @relation("createdTasks")
+  assigneeTasks Task[]         @relation("assigneeTasks")
   userBoards    userBoards[]
+  invites       inviteBoards[]
 
   @@map("users")
 }
@@ -41,10 +42,11 @@ model Board {
   creator   User @relation(fields: [creatorId], onDelete: Cascade, references: [id])
   creatorId Int  @map("creator_id")
 
-  createdAt  DateTime     @default(now()) @map("created_at")
-  updatedAt  DateTime     @updatedAt @map("updated_at")
+  createdAt  DateTime       @default(now()) @map("created_at")
+  updatedAt  DateTime       @updatedAt @map("updated_at")
   columns    Column[]
   userBoards userBoards[]
+  invites    inviteBoards[]
 
   @@map("boards")
 }
@@ -99,4 +101,28 @@ model userBoards {
 
   @@id([userId, boardId])
   @@map("user_board")
+}
+
+model inviteBoards {
+  id Int @id @default(autoincrement())
+
+  user   User @relation(fields: [userId], onDelete: Cascade, references: [id])
+  userId Int  @map("user_id")
+
+  board   Board @relation(fields: [boardId], onDelete: Cascade, references: [id])
+  boardId Int   @map("board_id")
+
+  status statusInvite @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, boardId])
+  @@map("invite_board")
+}
+
+enum statusInvite {
+  PENDING
+  ACCEPTED
+  DECLINED
 }

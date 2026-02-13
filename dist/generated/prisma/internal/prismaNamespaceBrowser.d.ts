@@ -31,6 +31,7 @@ export declare const ModelName: {
     readonly Column: "Column";
     readonly Task: "Task";
     readonly userBoards: "userBoards";
+    readonly inviteBoards: "inviteBoards";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export declare const TransactionIsolationLevel: {
@@ -90,6 +91,15 @@ export declare const UserBoardsScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type UserBoardsScalarFieldEnum = (typeof UserBoardsScalarFieldEnum)[keyof typeof UserBoardsScalarFieldEnum];
+export declare const InviteBoardsScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly boardId: "boardId";
+    readonly status: "status";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type InviteBoardsScalarFieldEnum = (typeof InviteBoardsScalarFieldEnum)[keyof typeof InviteBoardsScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";

@@ -43,5 +43,8 @@ export interface PrismaClient<in LogOpts extends Prisma.LogLevel = never, in out
     get userBoards(): Prisma.userBoardsDelegate<ExtArgs, {
         omit: OmitOpts;
     }>;
+    get inviteBoards(): Prisma.inviteBoardsDelegate<ExtArgs, {
+        omit: OmitOpts;
+    }>;
 }
 export declare function getPrismaClientClass(dirname: string): PrismaClientConstructor;

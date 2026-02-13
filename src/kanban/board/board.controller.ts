@@ -8,6 +8,8 @@ import {
   Param,
   UseGuards,
   Delete,
+  HttpStatus,
+  HttpCode,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -70,5 +72,31 @@ export class BoardController {
   @Get('/:boardId')
   getBoard(@Param('boardId') boardId: string) {
     return this.boardService.findOne(+boardId);
+  }
+
+  @BoardProtected()
+  @Post('/:boardId/invite')
+  inviteBoard(
+    @Param('boardId') boardId: string,
+    @Body('userId') userId: string,
+  ) {
+    return this.boardService.inviteBoard(+userId, +boardId);
+  }
+
+  @Patch('/:boardId/invite/:inviteId/accept')
+  acceptInviteBoard(
+    @Param('boardId') boardId: string,
+    @Param('inviteId') inviteId: string,
+    @Authorizated('id') userId: string,
+  ) {
+    return this.boardService.acceptInvite(+userId, +boardId, +inviteId);
+  }
+
+  @Patch('/:boardId/invite/:inviteId/decline')
+  declineInviteBoard(
+    @Param('inviteId') inviteId: string,
+    @Authorizated('id') userId: string,
+  ) {
+    return this.boardService.declineInvite(+inviteId, +userId);
   }
 }

@@ -5,7 +5,7 @@ import { UpdateColumnDto } from './dto/update-column.dto';
 
 @Injectable()
 export class ColumnService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async create(boardId: number, dto: CreateColumnDto) {
     const lastColumn = await this.prisma.column.findFirst({
@@ -24,6 +24,9 @@ export class ColumnService {
         ...dto,
         boardId,
         position,
+      },
+      include: {
+        tasks: true,
       },
     });
 

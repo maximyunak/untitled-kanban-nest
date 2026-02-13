@@ -7,3 +7,4 @@ export type Board = Prisma.BoardModel;
 export type Column = Prisma.ColumnModel;
 export type Task = Prisma.TaskModel;
 export type userBoards = Prisma.userBoardsModel;
+export type inviteBoards = Prisma.inviteBoardsModel;

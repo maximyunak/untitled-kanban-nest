@@ -181,6 +181,7 @@ export declare const ModelName: {
     readonly Column: "Column";
     readonly Task: "Task";
     readonly userBoards: "userBoards";
+    readonly inviteBoards: "inviteBoards";
 };
 export type ModelName = (typeof ModelName)[keyof typeof ModelName];
 export interface TypeMapCb<GlobalOmitOptions = {}> extends runtime.Types.Utils.Fn<{
@@ -193,7 +194,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         omit: GlobalOmitOptions;
     };
     meta: {
-        modelProps: "user" | "board" | "column" | "task" | "userBoards";
+        modelProps: "user" | "board" | "column" | "task" | "userBoards" | "inviteBoards";
         txIsolationLevel: TransactionIsolationLevel;
     };
     model: {
@@ -527,6 +528,72 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
                 };
             };
         };
+        inviteBoards: {
+            payload: Prisma.$inviteBoardsPayload<ExtArgs>;
+            fields: Prisma.inviteBoardsFieldRefs;
+            operations: {
+                findUnique: {
+                    args: Prisma.inviteBoardsFindUniqueArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload> | null;
+                };
+                findUniqueOrThrow: {
+                    args: Prisma.inviteBoardsFindUniqueOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload>;
+                };
+                findFirst: {
+                    args: Prisma.inviteBoardsFindFirstArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload> | null;
+                };
+                findFirstOrThrow: {
+                    args: Prisma.inviteBoardsFindFirstOrThrowArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload>;
+                };
+                findMany: {
+                    args: Prisma.inviteBoardsFindManyArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload>[];
+                };
+                create: {
+                    args: Prisma.inviteBoardsCreateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload>;
+                };
+                createMany: {
+                    args: Prisma.inviteBoardsCreateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                delete: {
+                    args: Prisma.inviteBoardsDeleteArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload>;
+                };
+                update: {
+                    args: Prisma.inviteBoardsUpdateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload>;
+                };
+                deleteMany: {
+                    args: Prisma.inviteBoardsDeleteManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                updateMany: {
+                    args: Prisma.inviteBoardsUpdateManyArgs<ExtArgs>;
+                    result: BatchPayload;
+                };
+                upsert: {
+                    args: Prisma.inviteBoardsUpsertArgs<ExtArgs>;
+                    result: runtime.Types.Utils.PayloadToResult<Prisma.$inviteBoardsPayload>;
+                };
+                aggregate: {
+                    args: Prisma.InviteBoardsAggregateArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.AggregateInviteBoards>;
+                };
+                groupBy: {
+                    args: Prisma.inviteBoardsGroupByArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.InviteBoardsGroupByOutputType>[];
+                };
+                count: {
+                    args: Prisma.inviteBoardsCountArgs<ExtArgs>;
+                    result: runtime.Types.Utils.Optional<Prisma.InviteBoardsCountAggregateOutputType> | number;
+                };
+            };
+        };
     };
 } & {
     other: {
@@ -608,6 +675,15 @@ export declare const UserBoardsScalarFieldEnum: {
     readonly updatedAt: "updatedAt";
 };
 export type UserBoardsScalarFieldEnum = (typeof UserBoardsScalarFieldEnum)[keyof typeof UserBoardsScalarFieldEnum];
+export declare const InviteBoardsScalarFieldEnum: {
+    readonly id: "id";
+    readonly userId: "userId";
+    readonly boardId: "boardId";
+    readonly status: "status";
+    readonly createdAt: "createdAt";
+    readonly updatedAt: "updatedAt";
+};
+export type InviteBoardsScalarFieldEnum = (typeof InviteBoardsScalarFieldEnum)[keyof typeof InviteBoardsScalarFieldEnum];
 export declare const SortOrder: {
     readonly asc: "asc";
     readonly desc: "desc";
@@ -644,6 +720,7 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
 export type StringFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'String'>;
 export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>;
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>;
+export type EnumstatusInviteFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'statusInvite'>;
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>;
 export type BatchPayload = {
     count: number;
@@ -676,6 +753,7 @@ export type GlobalOmitConfig = {
     column?: Prisma.ColumnOmit;
     task?: Prisma.TaskOmit;
     userBoards?: Prisma.userBoardsOmit;
+    inviteBoards?: Prisma.inviteBoardsOmit;
 };
 export type LogLevel = 'info' | 'query' | 'warn' | 'error';
 export type LogDefinition = {

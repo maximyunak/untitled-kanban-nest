@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.defineExtension = exports.TaskOrderByRelevanceFieldEnum = exports.ColumnOrderByRelevanceFieldEnum = exports.BoardOrderByRelevanceFieldEnum = exports.UserOrderByRelevanceFieldEnum = exports.NullsOrder = exports.SortOrder = exports.UserBoardsScalarFieldEnum = exports.TaskScalarFieldEnum = exports.ColumnScalarFieldEnum = exports.BoardScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
+exports.defineExtension = exports.TaskOrderByRelevanceFieldEnum = exports.ColumnOrderByRelevanceFieldEnum = exports.BoardOrderByRelevanceFieldEnum = exports.UserOrderByRelevanceFieldEnum = exports.NullsOrder = exports.SortOrder = exports.InviteBoardsScalarFieldEnum = exports.UserBoardsScalarFieldEnum = exports.TaskScalarFieldEnum = exports.ColumnScalarFieldEnum = exports.BoardScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
 const runtime = __importStar(require("@prisma/client/runtime/library"));
 exports.PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
 exports.PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
@@ -64,7 +64,8 @@ exports.ModelName = {
     Board: 'Board',
     Column: 'Column',
     Task: 'Task',
-    userBoards: 'userBoards'
+    userBoards: 'userBoards',
+    inviteBoards: 'inviteBoards'
 };
 exports.TransactionIsolationLevel = runtime.makeStrictEnum({
     ReadUncommitted: 'ReadUncommitted',
@@ -114,6 +115,14 @@ exports.TaskScalarFieldEnum = {
 exports.UserBoardsScalarFieldEnum = {
     userId: 'userId',
     boardId: 'boardId',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+};
+exports.InviteBoardsScalarFieldEnum = {
+    id: 'id',
+    userId: 'userId',
+    boardId: 'boardId',
+    status: 'status',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
 };
