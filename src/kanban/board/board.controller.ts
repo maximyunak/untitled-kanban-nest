@@ -4,12 +4,9 @@ import {
   Body,
   Get,
   Patch,
-  Proppatch,
   Param,
   UseGuards,
   Delete,
-  HttpStatus,
-  HttpCode,
 } from '@nestjs/common';
 import { BoardService } from './board.service';
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -24,7 +21,6 @@ import { CreateBoardResponse } from './dto/create-board-response.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { BoardOwnerGuard } from './guards/board-owner.guard';
 import { BoardProtected } from './decorators/board-protected.decorator';
-import { CreateInviteDto } from './dto/create-invite.dto';
 
 @Protected()
 @Controller('boards')
@@ -73,28 +69,5 @@ export class BoardController {
   @Get('/:boardId')
   getBoard(@Param('boardId') boardId: string) {
     return this.boardService.findOne(+boardId);
-  }
-
-  @BoardProtected()
-  @Post('/:boardId/invite')
-  inviteBoard(@Param('boardId') boardId: string, @Body() dto: CreateInviteDto) {
-    return this.boardService.inviteBoard(+dto.userId, +boardId);
-  }
-
-  @Patch('/:boardId/invite/:inviteId/accept')
-  acceptInviteBoard(
-    @Param('boardId') boardId: string,
-    @Param('inviteId') inviteId: string,
-    @Authorizated('id') userId: string,
-  ) {
-    return this.boardService.acceptInvite(+userId, +boardId, +inviteId);
-  }
-
-  @Patch('/:boardId/invite/:inviteId/decline')
-  declineInviteBoard(
-    @Param('inviteId') inviteId: string,
-    @Authorizated('id') userId: string,
-  ) {
-    return this.boardService.declineInvite(+inviteId, +userId);
   }
 }
