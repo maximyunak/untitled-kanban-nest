@@ -1,29 +1,27 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { Board } from 'generated/prisma/client';
+import type { Board } from 'generated/prisma/client';
 
-export class BoardResponse {
+export class BoardsResponse {
   @ApiProperty({
     description: 'Boards',
-    example: `{
-    "boards": [
-        {
-            "id": 5,
-            "name": "board1",
-            "description": "great desc",
-            "creatorId": 10,
-            "createdAt": "2026-02-03T12:15:10.186Z",
-            "updatedAt": "2026-02-03T12:15:10.186Z"
-        },
-        {
-            "id": 6,
-            "name": "board1",
-            "description": "great desc",
-            "creatorId": 10,
-            "createdAt": "2026-02-03T12:20:06.325Z",
-            "updatedAt": "2026-02-03T12:20:06.325Z"
-        }
-    ]
-}`,
+    example: [
+      {
+        id: 8,
+        name: 'board1',
+        description: 'great desc',
+        creatorId: 15,
+        createdAt: '2026-02-04T09:41:06.742Z',
+        updatedAt: '2026-02-04T09:41:06.742Z',
+      },
+      {
+        id: 9,
+        name: 'board1',
+        description: 'great desc',
+        creatorId: 15,
+        createdAt: '2026-02-04T10:26:55.082Z',
+        updatedAt: '2026-02-04T10:26:55.082Z',
+      },
+    ],
   })
   boards: Board[];
 }
