@@ -123,10 +123,36 @@ export class KanbanGateway implements OnGatewayConnection, OnGatewayDisconnect {
   /**
    * Отправляет событие "task:move" всем участникам доски.
    * @param boardId - ID доски, для которой перемещают таски
+   * @param columnId - ID колонки
    * @param payload - объект с массивом тасок в новом порядке
    * @param payload.tasks - массив тасок после перемещения
    */
-  handleMoveTask(boardId: number, payload: { tasks: Task[] }) {
-    this.server.to(`board-${boardId}`).emit('task:move', payload.tasks);
+  handleMoveTask(
+    boardId: number,
+    columnId: number,
+    payload: { tasks: Task[] },
+  ) {
+    this.server
+      .to(`board-${boardId}`)
+      .emit('task:move', { columnId, tasks: payload.tasks });
+  }
+
+  /**
+   * Отправляет событие "task:move" всем участникам доски.
+   * @param boardId - ID доски, для которой перемещают таски
+   * @param columnId - колонка в которую переместили
+   * @param payload - объект с массивом тасок в новом порядке
+   * @param payload.tasks - массив тасок после перемещения
+   */
+  handleMoveTaskToColumn(
+    boardId: number,
+    payload: {
+      sourceTasks: Task[];
+      targetTasks: Task[];
+      sourceColumnId: number;
+      targetColumnId: number;
+    },
+  ) {
+    this.server.to(`board-${boardId}`).emit('task:move-to-column', payload);
   }
 }

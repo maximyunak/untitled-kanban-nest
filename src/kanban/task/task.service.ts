@@ -3,6 +3,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { Task } from 'generated/prisma/client';
+import { MoveTaskToColumnDto } from './dto/move-task-to-column.dto';
+import { MoveTaskDto } from './dto/move-task.dto';
 
 @Injectable()
 export class TaskService {
@@ -62,7 +64,7 @@ export class TaskService {
     return { task: updated };
   }
 
-  async move(boardId: number, id: number, toPosition: number) {
+  async move(boardId: number, id: number, dto: MoveTaskDto) {
     const task = await this.isTaskInBoard(boardId, id);
 
     const tasks = await this.prisma.task.findMany({
@@ -78,7 +80,7 @@ export class TaskService {
 
     const [moved] = tasks.splice(oldIndex, 1);
 
-    tasks.splice(toPosition, 0, moved);
+    tasks.splice(dto.toPosition, 0, moved);
 
     const updated = await this.prisma.$transaction(
       tasks.map((el, idx) =>
@@ -96,6 +98,78 @@ export class TaskService {
     return {
       tasks: updated.sort((a, b) => a.position - b.position),
     };
+  }
+
+  async moveTaskToColumn(
+    boardId: number,
+    taskId: number,
+    dto: MoveTaskToColumnDto,
+  ) {
+    const task = await this.isTaskInBoard(boardId, taskId);
+
+    return await this.prisma.$transaction(async (prisma) => {
+      // обновление позиций в старой колонке
+      await prisma.task.updateMany({
+        where: {
+          columnId: task.columnId,
+          position: {
+            gt: task.position,
+          },
+        },
+        data: {
+          position: {
+            decrement: 1,
+          },
+        },
+      });
+
+      // добавление в новую колонку и обновление позиций
+      await prisma.task.updateMany({
+        where: {
+          columnId: dto.columnId,
+          position: {
+            gte: dto.toPosition,
+          },
+        },
+        data: {
+          position: {
+            increment: 1,
+          },
+        },
+      });
+
+      await prisma.task.update({
+        where: {
+          id: task.id,
+        },
+        data: {
+          columnId: dto.columnId,
+          position: dto.toPosition,
+        },
+      });
+
+      const targetTasks = await prisma.task.findMany({
+        where: {
+          columnId: dto.columnId,
+        },
+        orderBy: {
+          position: 'asc',
+        },
+      });
+
+      const sourceTasks = await prisma.task.findMany({
+        where: {
+          columnId: task.columnId,
+        },
+      });
+
+      return {
+        sourceTasks,
+        targetTasks,
+        sourceColumnId: task.columnId,
+        targetColumnId: dto.columnId,
+      };
+    });
   }
 
   async remove(boardId: number, id: number) {

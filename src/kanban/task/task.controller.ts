@@ -5,6 +5,8 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { BoardProtected } from '../board/decorators/board-protected.decorator';
 import { KanbanGateway } from '../kanban.gateway';
+import { MoveTaskToColumnDto } from './dto/move-task-to-column.dto';
+import { MoveTaskDto } from './dto/move-task.dto';
 
 @BoardProtected()
 @Protected()
@@ -47,11 +49,22 @@ export class TaskController {
   async move(
     @Param('boardId') boardId: string,
     @Param('id') id: string,
-    @Body('toPosition') toPosition: number,
+    @Body() dto: MoveTaskDto,
   ) {
-    const task = await this.taskService.move(+boardId, +id, toPosition);
-    this.gateway.handleMoveTask(+boardId, task);
+    const task = await this.taskService.move(+boardId, +id, dto);
+    this.gateway.handleMoveTask(+boardId, dto.columnId, task);
     return task;
+  }
+
+  @Patch('/tasks/:id/move-to-column')
+  async moveToColumn(
+    @Param('boardId') boardId: string,
+    @Param('id') id: string,
+    @Body() dto: MoveTaskToColumnDto,
+  ) {
+    const data = await this.taskService.moveTaskToColumn(+boardId, +id, dto);
+    this.gateway.handleMoveTaskToColumn(+boardId, data);
+    return data;
   }
 
   @Delete('/tasks/:id')
