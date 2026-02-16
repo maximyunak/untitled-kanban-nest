@@ -17,12 +17,13 @@ import {
   ApiOperation,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
-import { BoardsResponse } from './dto/boards.dto';
-import { CreateBoardResponse } from './dto/create-board-response.dto';
+import { BoardsResponse } from './dto/response/boards.dto';
+import { CreateBoardResponse } from './dto/response/create-board-response.dto';
 import { UpdateBoardDto } from './dto/update-board.dto';
 import { BoardOwnerGuard } from './guards/board-owner.guard';
 import { BoardProtected } from './decorators/board-protected.decorator';
-import { BoardResponse } from './dto/board.dto';
+import { BoardResponse } from './dto/response/board.dto';
+import { BoardPageResponse } from './dto/response/board-page.dto';
 
 @Protected()
 @ApiUnauthorizedResponse({
@@ -95,6 +96,9 @@ export class BoardController {
     summary: 'Полная информация о доске',
     description:
       'Выдает всю информацию о доске включая задачи, колонки и пользователей у которых есть к ней доступ',
+  })
+  @ApiOkResponse({
+    type: BoardPageResponse,
   })
   @BoardProtected()
   @Get('/:boardId')

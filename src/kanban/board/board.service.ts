@@ -86,8 +86,32 @@ export class BoardService {
     });
     if (!board) throw new NotFoundException(`Board with id ${id} not found`);
 
+    const users = await this.prisma.userBoards.findMany({
+      where: {
+        boardId: board.id,
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            email: true,
+            firstName: true,
+            lastName: true,
+            patronymic: true,
+            createdAt: true,
+            updatedAt: true,
+          },
+        },
+      },
+    });
+
+    const data = {
+      ...board,
+      users: users.map((el) => el.user),
+    };
+
     return {
-      board,
+      board: data,
     };
   }
 

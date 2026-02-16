@@ -1,6 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
 import type { Board } from 'generated/prisma/client';
-import { CreateBoardDto } from './create-board.dto';
 
 export class BoardResponse {
   @ApiProperty({
