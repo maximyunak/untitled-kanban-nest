@@ -44,6 +44,58 @@ let UserService = class UserService {
         });
         return user;
     }
+    async me(id) {
+        const user = await this.prisma.user.findUnique({
+            where: {
+                id,
+            },
+            omit: {
+                password: true,
+            },
+            include: {
+                boards: true,
+                assigneeTasks: {
+                    orderBy: {
+                        deadline: 'asc',
+                    },
+                    include: {
+                        column: {
+                            select: {
+                                board: {
+                                    select: {
+                                        id: true,
+                                        name: true,
+                                    },
+                                },
+                            },
+                        },
+                    },
+                },
+            },
+        });
+        const assigneeTasks = user?.assigneeTasks.map((task) => {
+            return {
+                id: task.id,
+                name: task.name,
+                description: task.description,
+                isCompleted: task.isCompleted,
+                position: task.position,
+                deadline: task.deadline,
+                creatorId: task.creatorId,
+                assigneeId: task.assigneeId,
+                columnId: task.columnId,
+                createdAt: task.createdAt,
+                updatedAt: task.updatedAt,
+                boardId: task.column.board.id,
+            };
+        });
+        return {
+            user: {
+                ...user,
+                assigneeTasks,
+            },
+        };
+    }
 };
 exports.UserService = UserService;
 exports.UserService = UserService = __decorate([

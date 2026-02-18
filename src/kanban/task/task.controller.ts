@@ -1,4 +1,12 @@
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { TaskService } from './task.service';
 import { Authorizated, Protected } from 'src/auth/decorators';
 import { CreateTaskDto } from './dto/create-task.dto';
