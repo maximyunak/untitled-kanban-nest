@@ -10,9 +10,9 @@ export class InviteController {
   constructor(private readonly inviteService: InviteService) {}
 
   @BoardProtected()
-  @Post('boards/:boardId/invites')
-  inviteBoard(@Param('boardId') boardId: string, @Body() dto: CreateInviteDto) {
-    return this.inviteService.create(+dto.userId, +boardId);
+  @Post('/boards/:boardId/invites')
+  inviteBoard(@Body() dto: CreateInviteDto) {
+    return this.inviteService.create(dto);
   }
 
   @Patch('/invites/:inviteId/accept')

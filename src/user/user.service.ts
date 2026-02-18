@@ -3,7 +3,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
   async findOne(id: number) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -30,8 +30,6 @@ export class UserService {
         email,
       },
     });
-
-    if (!user) throw new NotFoundException();
 
     return user;
   }

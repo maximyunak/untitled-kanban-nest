@@ -19,7 +19,7 @@ export class AuthService {
     private config: ConfigService,
     private userService: UserService,
     private tokenService: TokenService,
-  ) {}
+  ) { }
 
   async register(res: Response, registerDto: RegisterDto) {
     const { password, email, lastName, firstName, patronymic } = registerDto;

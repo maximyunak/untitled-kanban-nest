@@ -42,8 +42,6 @@ let UserService = class UserService {
                 email,
             },
         });
-        if (!user)
-            throw new common_1.NotFoundException();
         return user;
     }
 };
