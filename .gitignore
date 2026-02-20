@@ -7,3 +7,4 @@ node_modules
 # Сборка
 dist/
 /dist/
+/generated/prisma

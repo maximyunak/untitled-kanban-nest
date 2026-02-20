@@ -6,7 +6,6 @@ CREATE TABLE `users` (
     `first_name` VARCHAR(191) NOT NULL,
     `last_name` VARCHAR(191) NOT NULL,
     `patronymic` VARCHAR(191) NULL,
-    `refresh_token` VARCHAR(191) NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
@@ -45,7 +44,7 @@ CREATE TABLE `tasks` (
     `description` VARCHAR(191) NULL,
     `is_completed` BOOLEAN NOT NULL DEFAULT false,
     `position` INTEGER NOT NULL DEFAULT 0,
-    `deadline` DATETIME(3) NOT NULL,
+    `deadline` DATETIME(3) NULL,
     `creator_id` INTEGER NOT NULL,
     `assignee_id` INTEGER NULL,
     `column_id` INTEGER NOT NULL,
@@ -66,14 +65,15 @@ CREATE TABLE `user_board` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `user_token` (
+CREATE TABLE `invite_board` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `token` VARCHAR(191) NOT NULL,
-    `expires_at` DATETIME(3) NOT NULL,
     `user_id` INTEGER NOT NULL,
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `updated_at` DATETIME(3) NOT NULL,
+    `board_id` INTEGER NOT NULL,
+    `status` ENUM('PENDING', 'ACCEPTED', 'DECLINED') NOT NULL DEFAULT 'PENDING',
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `invite_board_user_id_board_id_key`(`user_id`, `board_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -99,4 +99,7 @@ ALTER TABLE `user_board` ADD CONSTRAINT `user_board_user_id_fkey` FOREIGN KEY (`
 ALTER TABLE `user_board` ADD CONSTRAINT `user_board_board_id_fkey` FOREIGN KEY (`board_id`) REFERENCES `boards`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `user_token` ADD CONSTRAINT `user_token_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `invite_board` ADD CONSTRAINT `invite_board_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `invite_board` ADD CONSTRAINT `invite_board_board_id_fkey` FOREIGN KEY (`board_id`) REFERENCES `boards`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

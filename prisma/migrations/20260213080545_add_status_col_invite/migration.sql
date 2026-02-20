@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE `invite_board` ADD COLUMN `status` ENUM('PENDING', 'ACCEPTED', 'DECLINED') NOT NULL DEFAULT 'PENDING';
