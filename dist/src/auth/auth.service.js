@@ -85,7 +85,7 @@ let AuthService = class AuthService {
     async login(res, loginDto) {
         const user = await this.userService.findByEmail(loginDto.email);
         if (!user) {
-            throw new common_1.UnauthorizedException();
+            throw new common_1.UnauthorizedException("Пользователь не найден");
         }
         if (!(await bcrypt.compare(loginDto.password, user.password))) {
             throw new common_1.UnauthorizedException('Неправильный логин или пароль');

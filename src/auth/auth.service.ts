@@ -53,7 +53,7 @@ export class AuthService {
     const user = await this.userService.findByEmail(loginDto.email);
 
     if (!user) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException("Пользователь не найден");
     }
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
       throw new UnauthorizedException('Неправильный логин или пароль');

@@ -6,7 +6,9 @@ import { MeResponseDto, MyProfileResponseDto } from './dto/me-response.dto';
 import { UserResponseDto } from './dto/user-response.dto';
 
 @Protected()
-@ApiUnauthorizedResponse()
+@ApiUnauthorizedResponse({
+  description: 'Unauthorized'
+})
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) { }
