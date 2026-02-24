@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Delete,
-  Get,
   Param,
   Patch,
   Post,
@@ -15,16 +14,31 @@ import { BoardProtected } from '../board/decorators/board-protected.decorator';
 import { KanbanGateway } from '../kanban.gateway';
 import { MoveTaskToColumnDto } from './dto/move-task-to-column.dto';
 import { MoveTaskDto } from './dto/move-task.dto';
+import { ApiForbiddenResponse, ApiOkResponse, ApiOperation, ApiUnauthorizedResponse } from '@nestjs/swagger';
+import { TaskResponse, TasksResponse } from './dto/response/task.dto';
+
 
 @BoardProtected()
 @Protected()
+@ApiUnauthorizedResponse({
+  description: 'Unauthorized'
+})
+@ApiForbiddenResponse({
+  description: "Forbidden resource"
+})
 @Controller('/boards/:boardId')
 export class TaskController {
   constructor(
     private readonly taskService: TaskService,
     private gateway: KanbanGateway,
-  ) {}
+  ) { }
 
+  @ApiOperation({
+    summary: "Создает таску"
+  })
+  @ApiOkResponse({
+    type: TaskResponse
+  })
   @Post('/columns/:columnId/tasks')
   async create(
     @Param('boardId') boardId: string,
@@ -42,6 +56,12 @@ export class TaskController {
     return task;
   }
 
+  @ApiOperation({
+    summary: "Обновляет таску"
+  })
+  @ApiOkResponse({
+    type: TaskResponse
+  })
   @Patch('/tasks/:id')
   async update(
     @Param('boardId') boardId: string,
@@ -53,6 +73,12 @@ export class TaskController {
     return task;
   }
 
+  @ApiOperation({
+    summary: "Перемещает таску в одной колонке"
+  })
+  @ApiOkResponse({
+    type: TasksResponse
+  })
   @Patch('/tasks/:id/move')
   async move(
     @Param('boardId') boardId: string,
@@ -64,6 +90,12 @@ export class TaskController {
     return task;
   }
 
+  @ApiOperation({
+    summary: "Перемещает таску в другую колонку"
+  })
+  @ApiOkResponse({
+    type: TasksResponse
+  })
   @Patch('/tasks/:id/move-to-column')
   async moveToColumn(
     @Param('boardId') boardId: string,
@@ -75,6 +107,12 @@ export class TaskController {
     return data;
   }
 
+  @ApiOperation({
+    summary: "Удаляет таску"
+  })
+  @ApiOkResponse({
+    type: TaskResponse
+  })
   @Delete('/tasks/:id')
   async remove(@Param('boardId') boardId: string, @Param('id') id: string) {
     const task = await this.taskService.remove(+boardId, +id);
