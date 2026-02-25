@@ -11,7 +11,7 @@ export declare class UserService {
         createdAt: Date;
         updatedAt: Date;
     }>;
-    findByEmail(email: string): Promise<{
+    findByEmail(email: string): import("../../generated/prisma/models").Prisma__UserClient<{
         email: string;
         password: string;
         firstName: string;
@@ -20,7 +20,9 @@ export declare class UserService {
         id: number;
         createdAt: Date;
         updatedAt: Date;
-    } | null>;
+    } | null, null, import("@prisma/client/runtime/library").DefaultArgs, {
+        omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
+    }>;
     me(id: number): Promise<{
         user: {
             assigneeTasks: {

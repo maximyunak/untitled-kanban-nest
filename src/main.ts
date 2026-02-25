@@ -4,6 +4,7 @@ import { ValidationPipe } from '@nestjs/common';
 import cookieParser from 'cookie-parser';
 import { ConfigService } from '@nestjs/config';
 import { setupSwagger } from './utils/swagger.util';
+import { LoggerMiddleware } from './middleware/logger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -15,6 +16,8 @@ async function bootstrap() {
     credentials: true,
     origin: true,
   });
+
+  app.use(new LoggerMiddleware().use);
 
   setupSwagger(app);
 

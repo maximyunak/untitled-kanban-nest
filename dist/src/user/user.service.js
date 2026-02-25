@@ -36,13 +36,12 @@ let UserService = class UserService {
             throw new common_1.NotFoundException('Пользователь не найден');
         return user;
     }
-    async findByEmail(email) {
-        const user = await this.prisma.user.findUnique({
+    findByEmail(email) {
+        return this.prisma.user.findUnique({
             where: {
                 email,
             },
         });
-        return user;
     }
     async me(id) {
         const user = await this.prisma.user.findUnique({
