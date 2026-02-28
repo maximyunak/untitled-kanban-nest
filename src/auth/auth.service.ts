@@ -82,7 +82,7 @@ export class AuthService {
 
     this.setCookies(res, 'accessToken', accessToken, accessTokenExpires);
 
-    return accessToken;
+    return { accessToken };
   }
 
   logout(res: Response) {

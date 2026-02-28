@@ -106,7 +106,7 @@ let AuthService = class AuthService {
         }
         const { accessToken, accessTokenExpires } = await this.tokenService.refreshAccess(refreshToken);
         this.setCookies(res, 'accessToken', accessToken, accessTokenExpires);
-        return accessToken;
+        return { accessToken };
     }
     logout(res) {
         this.setCookies(res, 'accessToken', '', new Date(0));

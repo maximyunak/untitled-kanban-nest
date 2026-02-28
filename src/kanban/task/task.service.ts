@@ -107,7 +107,7 @@ export class TaskService {
   ) {
     const task = await this.isTaskInBoard(boardId, taskId);
 
-    return await this.prisma.$transaction(async (prisma) => {
+    return this.prisma.$transaction(async (prisma) => {
       // обновление позиций в старой колонке
       await prisma.task.updateMany({
         where: {
@@ -207,5 +207,45 @@ export class TaskService {
       );
 
     return task;
+  }
+
+  async getMyTasks(userId: number) {
+    const assigneeTasks = await this.prisma.task.findMany({
+      where: {
+        assigneeId: userId,
+      },
+      include: {
+        column: {
+          select: {
+            board: {
+              select: {
+                id: true,
+                name: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    const tasks = assigneeTasks.map((task) => {
+      return {
+        id: task.id,
+        name: task.name,
+        description: task.description,
+        isCompleted: task.isCompleted,
+        position: task.position,
+        deadline: task.deadline,
+        creatorId: task.creatorId,
+        assigneeId: task.assigneeId,
+        columnId: task.columnId,
+        createdAt: task.createdAt,
+        updatedAt: task.updatedAt,
+        boardId: task.column.board.id,
+        boardName: task.column.board.name,
+      };
+    });
+
+    return { tasks };
   }
 }
