@@ -11,6 +11,7 @@ import { ConfigService } from '@nestjs/config';
 import { UserService } from 'src/user/user.service';
 import { TokenPayload, TokenService } from 'src/auth/token.service';
 import { Request, Response } from 'express';
+import { Profile } from 'passport-yandex';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,7 @@ export class AuthService {
     private config: ConfigService,
     private userService: UserService,
     private tokenService: TokenService,
-  ) { }
+  ) {}
 
   async register(res: Response, registerDto: RegisterDto) {
     const { password, email, lastName, firstName, patronymic } = registerDto;
@@ -31,7 +32,7 @@ export class AuthService {
     }
 
     const hashPassword = await bcrypt.hash(password, 10);
-    const { password: _, ...user } = await this.prisma.user.create({
+    const { id } = await this.prisma.user.create({
       data: {
         email,
         password: hashPassword,
@@ -42,18 +43,32 @@ export class AuthService {
     });
 
     const payload: TokenPayload = {
-      id: user.id,
-      email: email,
+      id,
     };
 
     return this.auth(res, payload);
   }
 
+  yandexRegister(profile: Profile) {
+    return this.prisma.user.create({
+      data: {
+        yandexId: profile.id,
+        firstName: (profile.name.givenName as string) ?? '',
+        lastName: profile.name?.familyName ?? '',
+        patronymic: profile.name?.middleName ?? '',
+      },
+    });
+  }
+
+  yandexLogin(res: Response, id: number) {
+    return this.auth(res, { id });
+  }
+
   async login(res: Response, loginDto: LoginDto) {
     const user = await this.userService.findByEmail(loginDto.email);
 
-    if (!user) {
-      throw new UnauthorizedException("Пользователь не найден");
+    if (!user || !user.password || !user.email) {
+      throw new UnauthorizedException('Пользователь не найден');
     }
     if (!(await bcrypt.compare(loginDto.password, user.password))) {
       throw new UnauthorizedException('Неправильный логин или пароль');
@@ -61,7 +76,6 @@ export class AuthService {
 
     const payload: TokenPayload = {
       id: user.id,
-      email: user.email,
     };
 
     return this.auth(res, payload);

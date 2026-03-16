@@ -5,7 +5,6 @@ import { ms } from 'src/utils/ms.util';
 
 export type TokenPayload = {
   id: number;
-  email: string;
 };
 
 @Injectable()
@@ -53,8 +52,7 @@ export class TokenService {
 
     const accessToken = await this.jwtService.signAsync(
       {
-        id: payload.id,
-        email: payload.email,
+        id: payload.id
       },
       {
         secret: this.ACCESS_SECRET,

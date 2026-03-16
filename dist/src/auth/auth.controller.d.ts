@@ -15,4 +15,6 @@ export declare class AuthController {
     refresh(res: Response, req: Request): Promise<{
         accessToken: string;
     }>;
+    yandexAuth(): void;
+    yandexCallback(res: Response, id: number): Promise<void>;
 }

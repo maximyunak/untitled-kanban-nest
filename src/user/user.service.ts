@@ -9,14 +9,8 @@ export class UserService {
       where: {
         id,
       },
-      select: {
-        id: true,
-        email: true,
-        firstName: true,
-        lastName: true,
-        patronymic: true,
-        createdAt: true,
-        updatedAt: true,
+      omit: {
+        password: true,
       },
     });
 
@@ -32,6 +26,14 @@ export class UserService {
     });
   }
 
+  findByYandexId(yandexId: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        yandexId,
+      },
+    });
+  }
+
   async me(id: number) {
     const user = await this.prisma.user.findUnique({
       where: {
@@ -42,7 +44,7 @@ export class UserService {
       },
       include: {
         boards: true,
-      }
+      },
     });
 
     return {

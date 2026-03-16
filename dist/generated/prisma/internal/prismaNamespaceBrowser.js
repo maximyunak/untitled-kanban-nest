@@ -60,6 +60,7 @@ exports.TransactionIsolationLevel = runtime.makeStrictEnum({
 });
 exports.UserScalarFieldEnum = {
     id: 'id',
+    yandexId: 'yandexId',
     email: 'email',
     password: 'password',
     firstName: 'firstName',
@@ -120,6 +121,7 @@ exports.NullsOrder = {
     last: 'last'
 };
 exports.UserOrderByRelevanceFieldEnum = {
+    yandexId: 'yandexId',
     email: 'email',
     password: 'password',
     firstName: 'firstName',

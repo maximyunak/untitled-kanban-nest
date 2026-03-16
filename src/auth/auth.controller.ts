@@ -7,6 +7,7 @@ import {
   HttpStatus,
   Res,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
@@ -20,6 +21,9 @@ import {
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
 import { AuthResponse } from './dto/auth.dto';
+import { AuthGuard } from '@nestjs/passport';
+import { Authorizated } from './decorators';
+import { type User } from '../../generated/prisma/client';
 
 @Controller('auth')
 export class AuthController {
@@ -106,5 +110,16 @@ export class AuthController {
     req: Request,
   ) {
     return this.authService.refresh(res, req);
+  }
+
+  @UseGuards(AuthGuard('yandex'))
+  @Get('/oauth/yandex')
+  yandexAuth() {}
+
+  @UseGuards(AuthGuard('yandex'))
+  @Get('/oauth/callback/yandex')
+  async yandexCallback(@Res() res: Response, @Authorizated('id') id: number) {
+    await this.authService.yandexLogin(res, id);
+    return res.redirect('http://localhost:3000');
   }
 }

@@ -22,14 +22,8 @@ let UserService = class UserService {
             where: {
                 id,
             },
-            select: {
-                id: true,
-                email: true,
-                firstName: true,
-                lastName: true,
-                patronymic: true,
-                createdAt: true,
-                updatedAt: true,
+            omit: {
+                password: true,
             },
         });
         if (!user)
@@ -43,6 +37,13 @@ let UserService = class UserService {
             },
         });
     }
+    findByYandexId(yandexId) {
+        return this.prisma.user.findUnique({
+            where: {
+                yandexId,
+            },
+        });
+    }
     async me(id) {
         const user = await this.prisma.user.findUnique({
             where: {
@@ -53,7 +54,7 @@ let UserService = class UserService {
             },
             include: {
                 boards: true,
-            }
+            },
         });
         return {
             user,

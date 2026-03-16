@@ -19,6 +19,8 @@ const register_dto_1 = require("./dto/register.dto");
 const login_dto_1 = require("./dto/login.dto");
 const swagger_1 = require("@nestjs/swagger");
 const auth_dto_1 = require("./dto/auth.dto");
+const passport_1 = require("@nestjs/passport");
+const decorators_1 = require("./decorators");
 let AuthController = class AuthController {
     authService;
     constructor(authService) {
@@ -35,6 +37,11 @@ let AuthController = class AuthController {
     }
     refresh(res, req) {
         return this.authService.refresh(res, req);
+    }
+    yandexAuth() { }
+    async yandexCallback(res, id) {
+        await this.authService.yandexLogin(res, id);
+        return res.redirect('http://localhost:3000');
     }
 };
 exports.AuthController = AuthController;
@@ -120,6 +127,22 @@ __decorate([
     __metadata("design:paramtypes", [Object, Object]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "refresh", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('yandex')),
+    (0, common_1.Get)('/oauth/yandex'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], AuthController.prototype, "yandexAuth", null);
+__decorate([
+    (0, common_1.UseGuards)((0, passport_1.AuthGuard)('yandex')),
+    (0, common_1.Get)('/oauth/callback/yandex'),
+    __param(0, (0, common_1.Res)()),
+    __param(1, (0, decorators_1.Authorizated)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, Number]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "yandexCallback", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

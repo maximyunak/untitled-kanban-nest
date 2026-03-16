@@ -627,6 +627,7 @@ export declare const TransactionIsolationLevel: {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel];
 export declare const UserScalarFieldEnum: {
     readonly id: "id";
+    readonly yandexId: "yandexId";
     readonly email: "email";
     readonly password: "password";
     readonly firstName: "firstName";
@@ -695,6 +696,7 @@ export declare const NullsOrder: {
 };
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder];
 export declare const UserOrderByRelevanceFieldEnum: {
+    readonly yandexId: "yandexId";
     readonly email: "email";
     readonly password: "password";
     readonly firstName: "firstName";

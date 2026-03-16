@@ -4,7 +4,8 @@ export declare class UserService {
     constructor(prisma: PrismaService);
     findOne(id: number): Promise<{
         id: number;
-        email: string;
+        yandexId: string | null;
+        email: string | null;
         firstName: string;
         lastName: string;
         patronymic: string | null;
@@ -13,8 +14,22 @@ export declare class UserService {
     }>;
     findByEmail(email: string): import("../../generated/prisma/models").Prisma__UserClient<{
         id: number;
-        email: string;
-        password: string;
+        yandexId: string | null;
+        email: string | null;
+        password: string | null;
+        firstName: string;
+        lastName: string;
+        patronymic: string | null;
+        createdAt: Date;
+        updatedAt: Date;
+    } | null, null, import("@prisma/client/runtime/library").DefaultArgs, {
+        omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
+    }>;
+    findByYandexId(yandexId: string): import("../../generated/prisma/models").Prisma__UserClient<{
+        id: number;
+        yandexId: string | null;
+        email: string | null;
+        password: string | null;
         firstName: string;
         lastName: string;
         patronymic: string | null;
@@ -35,7 +50,8 @@ export declare class UserService {
             }[];
         } & {
             id: number;
-            email: string;
+            yandexId: string | null;
+            email: string | null;
             firstName: string;
             lastName: string;
             patronymic: string | null;

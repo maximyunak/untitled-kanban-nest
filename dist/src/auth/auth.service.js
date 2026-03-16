@@ -67,7 +67,7 @@ let AuthService = class AuthService {
             throw new common_1.ConflictException('User with this email already exists');
         }
         const hashPassword = await bcrypt.hash(password, 10);
-        const { password: _, ...user } = await this.prisma.user.create({
+        const { id } = await this.prisma.user.create({
             data: {
                 email,
                 password: hashPassword,
@@ -77,22 +77,33 @@ let AuthService = class AuthService {
             },
         });
         const payload = {
-            id: user.id,
-            email: email,
+            id,
         };
         return this.auth(res, payload);
     }
+    yandexRegister(profile) {
+        return this.prisma.user.create({
+            data: {
+                yandexId: profile.id,
+                firstName: profile.name.givenName ?? '',
+                lastName: profile.name?.familyName ?? '',
+                patronymic: profile.name?.middleName ?? '',
+            },
+        });
+    }
+    yandexLogin(res, id) {
+        return this.auth(res, { id });
+    }
     async login(res, loginDto) {
         const user = await this.userService.findByEmail(loginDto.email);
-        if (!user) {
-            throw new common_1.UnauthorizedException("Пользователь не найден");
+        if (!user || !user.password || !user.email) {
+            throw new common_1.UnauthorizedException('Пользователь не найден');
         }
         if (!(await bcrypt.compare(loginDto.password, user.password))) {
             throw new common_1.UnauthorizedException('Неправильный логин или пароль');
         }
         const payload = {
             id: user.id,
-            email: user.email,
         };
         return this.auth(res, payload);
     }

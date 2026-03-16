@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { TokenService } from '../token.service';
 import { AuthenticatedSocket } from 'src/kanban/types/AuthenticatedSocket.type';
+import { User } from '../../../generated/prisma/client';
 
 @Injectable()
 export class WsAuthGuard implements CanActivate {
