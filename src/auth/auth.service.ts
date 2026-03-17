@@ -50,12 +50,21 @@ export class AuthService {
   }
 
   yandexRegister(profile: Profile) {
+    interface YandexProfileJson {
+      id: string;
+      login: string;
+      first_name: string;
+      last_name: string;
+      default_email?: string;
+    }
+
+    const yandex = profile._json as YandexProfileJson;
+
     return this.prisma.user.create({
       data: {
         yandexId: profile.id,
-        firstName: (profile.name.givenName as string) ?? '',
-        lastName: profile.name?.familyName ?? '',
-        patronymic: profile.name?.middleName ?? '',
+        firstName: yandex.first_name,
+        lastName: yandex.last_name,
       },
     });
   }

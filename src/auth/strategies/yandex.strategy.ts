@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PassportStrategy,  } from '@nestjs/passport';
+import { PassportStrategy } from '@nestjs/passport';
 import { ConfigService } from '@nestjs/config';
 
 import { Profile, Strategy } from 'passport-yandex';
@@ -20,10 +20,7 @@ export class YandexStrategy extends PassportStrategy(Strategy, 'yandex') {
     });
   }
 
-  async validate(accessToken, refreshToken, profile: Profile) {
-    console.log(profile.id, 'profile id');
-    console.log(profile, 'profile');
-    // return profile;
+  async validate(accessToken: string, refreshToken: string, profile: Profile) {
     const user = await this.userService.findByYandexId(profile.id);
 
     if (!user) {

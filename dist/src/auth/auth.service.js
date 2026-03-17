@@ -82,12 +82,12 @@ let AuthService = class AuthService {
         return this.auth(res, payload);
     }
     yandexRegister(profile) {
+        const yandex = profile._json;
         return this.prisma.user.create({
             data: {
                 yandexId: profile.id,
-                firstName: profile.name.givenName ?? '',
-                lastName: profile.name?.familyName ?? '',
-                patronymic: profile.name?.middleName ?? '',
+                firstName: yandex.first_name,
+                lastName: yandex.last_name,
             },
         });
     }
