@@ -12,12 +12,12 @@ export declare class JwtStrategy extends JwtStrategy_base {
     private config;
     constructor(userService: UserService, config: ConfigService);
     validate(payload: TokenPayload): Promise<{
-        id: number;
-        yandexId: string | null;
         email: string | null;
         firstName: string;
         lastName: string;
         patronymic: string | null;
+        id: number;
+        yandexId: string | null;
         createdAt: Date;
         updatedAt: Date;
     }>;

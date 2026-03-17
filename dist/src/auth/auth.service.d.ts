@@ -16,15 +16,15 @@ export declare class AuthService {
         accessToken: string;
     }>;
     yandexRegister(profile: Profile): import("../../generated/prisma/models").Prisma__UserClient<{
-        yandexId: string | null;
         email: string | null;
         password: string | null;
         firstName: string;
         lastName: string;
         patronymic: string | null;
+        id: number;
+        yandexId: string | null;
         createdAt: Date;
         updatedAt: Date;
-        id: number;
     }, never, import("@prisma/client/runtime/library").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
     }>;
