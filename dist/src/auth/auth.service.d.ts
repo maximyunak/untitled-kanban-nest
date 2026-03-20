@@ -25,7 +25,7 @@ export declare class AuthService {
         patronymic: string | null;
         createdAt: Date;
         updatedAt: Date;
-    }, never, import("@prisma/client/runtime/library").DefaultArgs, {
+    }, never, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
     }>;
     yandexLogin(res: Response, id: number): Promise<{

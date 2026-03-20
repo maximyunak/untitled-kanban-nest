@@ -22,7 +22,7 @@ export declare class UserService {
         patronymic: string | null;
         createdAt: Date;
         updatedAt: Date;
-    } | null, null, import("@prisma/client/runtime/library").DefaultArgs, {
+    } | null, null, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
     }>;
     findByYandexId(yandexId: string): import("../../generated/prisma/models").Prisma__UserClient<{
@@ -35,7 +35,7 @@ export declare class UserService {
         patronymic: string | null;
         createdAt: Date;
         updatedAt: Date;
-    } | null, null, import("@prisma/client/runtime/library").DefaultArgs, {
+    } | null, null, import("@prisma/client/runtime/client").DefaultArgs, {
         omit: import("../../generated/prisma/internal/prismaNamespace").GlobalOmitConfig | undefined;
     }>;
     me(id: number): Promise<{

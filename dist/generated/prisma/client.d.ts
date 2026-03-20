@@ -1,4 +1,4 @@
-import * as runtime from "@prisma/client/runtime/library";
+import * as runtime from "@prisma/client/runtime/client";
 import * as $Class from "./internal/class.js";
 import * as Prisma from "./internal/prismaNamespace.js";
 export * as $Enums from './enums.js';

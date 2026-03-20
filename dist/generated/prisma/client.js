@@ -37,14 +37,10 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Prisma = exports.PrismaClient = exports.$Enums = void 0;
-const process = __importStar(require("node:process"));
-const path = __importStar(require("node:path"));
 const $Class = __importStar(require("./internal/class.js"));
 const Prisma = __importStar(require("./internal/prismaNamespace.js"));
 exports.Prisma = Prisma;
 exports.$Enums = __importStar(require("./enums.js"));
 __exportStar(require("./enums.js"), exports);
-exports.PrismaClient = $Class.getPrismaClientClass(__dirname);
-path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
-path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node");
+exports.PrismaClient = $Class.getPrismaClientClass();
 //# sourceMappingURL=client.js.map

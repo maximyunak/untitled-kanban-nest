@@ -3,28 +3,13 @@ export type * from '../models.js';
 export type * from './prismaNamespace.js';
 export declare const Decimal: typeof runtime.Decimal;
 export declare const NullTypes: {
-    DbNull: (new (secret: never) => typeof runtime.objectEnumValues.instances.DbNull);
-    JsonNull: (new (secret: never) => typeof runtime.objectEnumValues.instances.JsonNull);
-    AnyNull: (new (secret: never) => typeof runtime.objectEnumValues.instances.AnyNull);
+    DbNull: (new (secret: never) => typeof runtime.DbNull);
+    JsonNull: (new (secret: never) => typeof runtime.JsonNull);
+    AnyNull: (new (secret: never) => typeof runtime.AnyNull);
 };
-export declare const DbNull: {
-    "__#private@#private": any;
-    _getNamespace(): string;
-    _getName(): string;
-    toString(): string;
-};
-export declare const JsonNull: {
-    "__#private@#private": any;
-    _getNamespace(): string;
-    _getName(): string;
-    toString(): string;
-};
-export declare const AnyNull: {
-    "__#private@#private": any;
-    _getNamespace(): string;
-    _getName(): string;
-    toString(): string;
-};
+export declare const DbNull: import("@prisma/client-runtime-utils").DbNullClass;
+export declare const JsonNull: import("@prisma/client-runtime-utils").JsonNullClass;
+export declare const AnyNull: import("@prisma/client-runtime-utils").AnyNullClass;
 export declare const ModelName: {
     readonly User: "User";
     readonly Board: "Board";

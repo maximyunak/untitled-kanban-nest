@@ -37,13 +37,13 @@ exports.TaskOrderByRelevanceFieldEnum = exports.ColumnOrderByRelevanceFieldEnum 
 const runtime = __importStar(require("@prisma/client/runtime/index-browser"));
 exports.Decimal = runtime.Decimal;
 exports.NullTypes = {
-    DbNull: runtime.objectEnumValues.classes.DbNull,
-    JsonNull: runtime.objectEnumValues.classes.JsonNull,
-    AnyNull: runtime.objectEnumValues.classes.AnyNull,
+    DbNull: runtime.NullTypes.DbNull,
+    JsonNull: runtime.NullTypes.JsonNull,
+    AnyNull: runtime.NullTypes.AnyNull,
 };
-exports.DbNull = runtime.objectEnumValues.instances.DbNull;
-exports.JsonNull = runtime.objectEnumValues.instances.JsonNull;
-exports.AnyNull = runtime.objectEnumValues.instances.AnyNull;
+exports.DbNull = runtime.DbNull;
+exports.JsonNull = runtime.JsonNull;
+exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
     User: 'User',
     Board: 'Board',

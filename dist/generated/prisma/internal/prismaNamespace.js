@@ -34,7 +34,7 @@ var __importStar = (this && this.__importStar) || (function () {
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.defineExtension = exports.TaskOrderByRelevanceFieldEnum = exports.ColumnOrderByRelevanceFieldEnum = exports.BoardOrderByRelevanceFieldEnum = exports.UserOrderByRelevanceFieldEnum = exports.NullsOrder = exports.SortOrder = exports.InviteBoardsScalarFieldEnum = exports.UserBoardsScalarFieldEnum = exports.TaskScalarFieldEnum = exports.ColumnScalarFieldEnum = exports.BoardScalarFieldEnum = exports.UserScalarFieldEnum = exports.TransactionIsolationLevel = exports.ModelName = exports.AnyNull = exports.JsonNull = exports.DbNull = exports.NullTypes = exports.prismaVersion = exports.getExtensionContext = exports.Decimal = exports.Sql = exports.raw = exports.join = exports.empty = exports.sql = exports.PrismaClientValidationError = exports.PrismaClientInitializationError = exports.PrismaClientRustPanicError = exports.PrismaClientUnknownRequestError = exports.PrismaClientKnownRequestError = void 0;
-const runtime = __importStar(require("@prisma/client/runtime/library"));
+const runtime = __importStar(require("@prisma/client/runtime/client"));
 exports.PrismaClientKnownRequestError = runtime.PrismaClientKnownRequestError;
 exports.PrismaClientUnknownRequestError = runtime.PrismaClientUnknownRequestError;
 exports.PrismaClientRustPanicError = runtime.PrismaClientRustPanicError;
@@ -48,17 +48,17 @@ exports.Sql = runtime.Sql;
 exports.Decimal = runtime.Decimal;
 exports.getExtensionContext = runtime.Extensions.getExtensionContext;
 exports.prismaVersion = {
-    client: "6.19.2",
-    engine: "c2990dca591cba766e3b7ef5d9e8a84796e47ab7"
+    client: "7.5.0",
+    engine: "280c870be64f457428992c43c1f6d557fab6e29e"
 };
 exports.NullTypes = {
-    DbNull: runtime.objectEnumValues.classes.DbNull,
-    JsonNull: runtime.objectEnumValues.classes.JsonNull,
-    AnyNull: runtime.objectEnumValues.classes.AnyNull,
+    DbNull: runtime.NullTypes.DbNull,
+    JsonNull: runtime.NullTypes.JsonNull,
+    AnyNull: runtime.NullTypes.AnyNull,
 };
-exports.DbNull = runtime.objectEnumValues.instances.DbNull;
-exports.JsonNull = runtime.objectEnumValues.instances.JsonNull;
-exports.AnyNull = runtime.objectEnumValues.instances.AnyNull;
+exports.DbNull = runtime.DbNull;
+exports.JsonNull = runtime.JsonNull;
+exports.AnyNull = runtime.AnyNull;
 exports.ModelName = {
     User: 'User',
     Board: 'Board',

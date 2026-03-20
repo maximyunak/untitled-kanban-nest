@@ -1,4 +1,4 @@
-import type * as runtime from "@prisma/client/runtime/library";
+import type * as runtime from "@prisma/client/runtime/client";
 import type * as Prisma from "../internal/prismaNamespace.js";
 export type TaskModel = runtime.Types.Result.DefaultSelection<Prisma.$TaskPayload>;
 export type AggregateTask = {
