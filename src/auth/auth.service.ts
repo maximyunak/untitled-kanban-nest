@@ -65,6 +65,7 @@ export class AuthService {
         yandexId: profile.id,
         firstName: yandex.first_name,
         lastName: yandex.last_name,
+        email: yandex.default_email,
       },
     });
   }
