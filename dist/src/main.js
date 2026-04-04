@@ -24,7 +24,9 @@ async function bootstrap() {
         transform: true,
     }));
     app.use((0, cookie_parser_1.default)(config.getOrThrow('COOKIES_SECRET')));
-    await app.listen(process.env.PORT ?? 8000);
+    const port = process.env.PORT ?? 8000;
+    await app.listen(port, '0.0.0.0');
+    console.log(`Server running on http://0.0.0.0:${port}`);
 }
 bootstrap();
 //# sourceMappingURL=main.js.map

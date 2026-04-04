@@ -112,10 +112,16 @@ export class AuthController {
     return this.authService.refresh(res, req);
   }
 
+  @ApiOperation({
+    summary: 'Вход/регистрация через yandex ouath',
+  })
   @UseGuards(AuthGuard('yandex'))
   @Get('/oauth/yandex')
   yandexAuth() {}
 
+  @ApiOperation({
+    summary: 'callback yandex oauth',
+  })
   @UseGuards(AuthGuard('yandex'))
   @Get('/oauth/callback/yandex')
   async yandexCallback(@Res() res: Response, @Authorizated('id') id: number) {

@@ -29,6 +29,8 @@ async function bootstrap() {
 
   app.use(cookieParser(config.getOrThrow<string>('COOKIES_SECRET')));
 
-  await app.listen(process.env.PORT ?? 8000);
+  const port = process.env.PORT ?? 8000;
+  await app.listen(port, '0.0.0.0');
+  console.log(`Server running on http://0.0.0.0:${port}`);
 }
 bootstrap();

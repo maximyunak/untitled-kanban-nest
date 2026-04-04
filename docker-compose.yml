@@ -11,8 +11,8 @@ services:
       - .:/app
       - /app/node_modules
     ports:
-      - 3000:3000
-    command: npm run start:dev
+      - 8000:8000
+    command: sh -c "npx prisma generate && npx prisma db push && npm run start:dev"
     depends_on:
       - mysql
     restart: always
